@@ -1,0 +1,20 @@
+Package: gpxtoolbox
+Title: Tools for Analyzing and Visualizing GPX Files
+Version: 0.0.0.9000
+Authors@R: 
+    person("Martin", "Chan", , "martinchan53@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = ""))
+Description: Provides functions for processing, analyzing, and visualizing GPS track data
+    from GPX files. The package offers tools for calculating route metrics such as 
+    distance, elevation gain/loss, and speed, as well as visualization capabilities
+    for elevation profiles and route maps. Designed for outdoor enthusiasts, athletes,
+    and researchers who work with GPS tracking data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    dplyr,
+    geosphere,
+    ggplot2,
+    sf
