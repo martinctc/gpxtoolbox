@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_route.R
 \name{plot_route}
 \alias{plot_route}
-\title{Plot GPX route visualization}
+\title{Plot GPX route visualisation}
 \usage{
 plot_route(track_points)
 }
@@ -11,20 +11,20 @@ plot_route(track_points)
 \itemize{
 \item lon - longitude in decimal degrees
 \item lat - latitude in decimal degrees
-\item ele - elevation in meters
-\item cumulative_distance - distance in kilometers
+\item ele - elevation in metres
+\item cumulative_distance - distance in kilometres
 }}
 }
 \value{
 Plots are displayed in the current graphics device. The function does not return a value.
 }
 \description{
-Creates visualizations of a GPS route, including an elevation profile and a route map.
+Creates visualisations of a GPS route, including an elevation profile and a route map.
 }
 \details{
-This function creates two visualizations:
+This function creates two visualisations:
 \itemize{
-\item An elevation profile showing elevation changes against distance traveled
+\item An elevation profile showing elevation changes against distance travelled
 \item A simple route map showing the geographical path
 }
 Both plots are created using ggplot2 with minimal styling.
@@ -37,7 +37,7 @@ track_data <- read_gpx_track("path/to/activity.gpx")
 # Calculate cumulative distance (required for plotting)
 track_data <- calculate_distance(track_data)
 
-# Plot the route visualizations
+# Plot the route visualisations
 plot_route(track_data)
 }
 
