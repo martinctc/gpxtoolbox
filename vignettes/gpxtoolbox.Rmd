@@ -1,0 +1,121 @@
+---
+title: "Introduction to gpxtoolbox"
+author: "Martin Chan"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to gpxtoolbox}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Overview
+
+`gpxtoolbox` is an R package designed for processing, analysing, and visualising GPS track data from GPX files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps.
+
+This vignette demonstrates how to use the key functions of the package.
+
+# Installation
+
+You can install the development version of `gpxtoolbox` from GitHub:
+
+```r
+# Install devtools if not already installed
+install.packages("devtools")
+
+# Install gpxtoolbox
+devtools::install_github("martinchan/gpxtoolbox")
+```
+
+# Example Workflow
+
+The package includes an example GPX file, `icc_intro_ride.gpx`, which is used in the following examples.
+
+## Load the Package
+
+```r
+library(gpxtoolbox)
+```
+
+## Read a GPX File
+
+Use the `read_gpx_track()` function to extract track points from a GPX file.
+
+```r
+# Path to the example GPX file
+example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+
+# Read the GPX file
+track_data <- read_gpx_track(example_gpx_path)
+
+# View the first few rows of the track data
+head(track_data)
+```
+
+## Calculate Metrics
+
+Use `calculate_distance()` and `calculate_elevation_stats()` to compute distances and elevation statistics.
+
+```r
+# Calculate distances
+track_data <- calculate_distance(track_data)
+
+# Calculate elevation statistics
+track_data <- calculate_elevation_stats(track_data)
+
+# View the updated track data
+head(track_data)
+```
+
+## Generate Route Statistics
+
+Use `calculate_route_stats()` to summarise route statistics such as total distance, elevation gain, and average speed.
+
+```r
+# Calculate route statistics
+stats <- calculate_route_stats(track_data)
+
+# Print the statistics
+print(stats)
+```
+
+## Visualise the Route
+
+Use `plot_route()` to create visualisations of the route, including an elevation profile and a route map.
+
+```r
+# Plot the route
+plot_route(track_data)
+```
+
+## Analyse a GPX File in One Step
+
+The `analyse_gpx()` function provides a high-level interface to process a GPX file and return statistics, plots, or processed data.
+
+```r
+# Analyse the example GPX file and get summary statistics
+stats <- analyse_gpx(example_gpx_path, return = "stats")
+print(stats)
+
+# Generate a plot of the route
+analyse_gpx(example_gpx_path, return = "plot")
+
+# Get processed track points data
+track_data <- analyse_gpx(example_gpx_path, return = "data")
+```
+
+# Working with Web Links
+
+You can also analyse GPX files from web links (e.g., Strava or RideWithGPS). The function will automatically download the GPX file and process it.
+
+```r
+# Analyse a GPX file from a Strava link
+# stats <- analyse_gpx("https://www.strava.com/routes/3193200014155699162")
+
+# Analyse a GPX file from a RideWithGPS link
+# stats <- analyse_gpx("https://ridewithgps.com/routes/39294504")
+```
+
+# Conclusion
+
+`gpxtoolbox` provides a comprehensive set of tools for working with GPX files in R. Whether you're an outdoor enthusiast, athlete, or researcher, this package makes it easy to process, analyse, and visualise GPS track data.
