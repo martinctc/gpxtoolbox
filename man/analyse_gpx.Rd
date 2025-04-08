@@ -47,11 +47,15 @@ stats <- analyse_gpx("https://www.strava.com/routes/3193200014155699162")
 # Get route statistics from a RideWithGPS link
 stats <- analyse_gpx("https://ridewithgps.com/routes/39294504")
 
-# Generate a plot
-analyse_gpx("path/to/file.gpx", return = "plot")
+# Use the example GPX file included in the package
+example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
 
-# Get processed data
-track_data <- analyse_gpx("path/to/file.gpx", return = "data")
+# Analyse the example GPX file
+stats <- analyse_gpx(example_gpx_path)
+print(stats)
+
+# Generate a plot of the example GPX file
+analyse_gpx(example_gpx_path, return = "plot")
 }
 
 }
