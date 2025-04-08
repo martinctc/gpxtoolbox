@@ -61,8 +61,8 @@ based on latitude and longitude using the OpenStreetMap Nominatim API.</p>
 
 <dt id="arg-all">all<a class="anchor" aria-label="anchor" href="#arg-all"></a></dt>
 <dd><p>Logical. If <code>TRUE</code>, identifies the location for all track points.
-If <code>FALSE</code> (default), only identifies the location for the start and end points
-of the route. Setting <code>all = FALSE</code> helps reduce API usage.</p></dd>
+If <code>FALSE</code> (default), identifies the location for the start, end, and
+25%, 50%, and 75% points of the route. Setting <code>all = FALSE</code> helps reduce API usage.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -81,7 +81,7 @@ active internet connection as the function queries an external API. Be mindful o
 <span class="r-in"><span><span class="co"># First read a GPX file</span></span></span>
 <span class="r-in"><span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_gpx_track.html">read_gpx_track</a></span><span class="op">(</span><span class="st">"path/to/activity.gpx"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Identify geographic locations for start and end points only</span></span></span>
+<span class="r-in"><span><span class="co"># Identify geographic locations for start, end, and key points</span></span></span>
 <span class="r-in"><span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu">identify_geo</span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Identify geographic locations for all points</span></span></span>

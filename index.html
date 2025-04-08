@@ -99,8 +99,11 @@
 <code class="sourceCode R"><span><span class="co"># Load the package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gpxtoolbox</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Read a GPX file</span></span>
-<span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gpx_track.html">read_gpx_track</a></span><span class="op">(</span><span class="st">"path/to/activity.gpx"</span><span class="op">)</span></span>
+<span><span class="co"># Use the example GPX file included in the package</span></span>
+<span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Read the GPX file</span></span>
+<span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gpx_track.html">read_gpx_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculate distances and elevation statistics</span></span>
 <span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_distance.html">calculate_distance</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span>
@@ -117,14 +120,15 @@
 <h3 id="analyse-a-gpx-file-in-one-step">Analyse a GPX File in One Step<a class="anchor" aria-label="anchor" href="#analyse-a-gpx-file-in-one-step"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Analyse a GPX file and get summary statistics</span></span>
-<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="st">"path/to/activity.gpx"</span>, return <span class="op">=</span> <span class="st">"stats"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Analyse the example GPX file and get summary statistics</span></span>
+<span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"stats"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Generate a plot of the route</span></span>
-<span><span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="st">"path/to/activity.gpx"</span>, return <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get processed track points data</span></span>
-<span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="st">"path/to/activity.gpx"</span>, return <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

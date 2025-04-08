@@ -54,7 +54,8 @@ distance and elevation, and provide summary statistics or visualization.</p>
 
 
 <dl><dt id="arg-gpx-path">gpx_path<a class="anchor" aria-label="anchor" href="#arg-gpx-path"></a></dt>
-<dd><p>Character string specifying the path to the GPX file.</p></dd>
+<dd><p>Character string specifying the path to the GPX file or a web link
+to a route on Strava or RideWithGPS.</p></dd>
 
 
 <dt id="arg-return">return<a class="anchor" aria-label="anchor" href="#arg-return"></a></dt>
@@ -72,12 +73,24 @@ Options are:</p><ul><li><p>"stats" (default): Returns a list of summary statisti
 <li><p>If "data": A data frame of processed track points with calculated
 metrics</p></li>
 </ul></div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>If a web link is provided for <code>gpx_path</code>, the function will automatically
+construct the appropriate GPX export URL, download the file to a temporary location,
+and process it.</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Get route statistics</span></span></span>
+<span class="r-in"><span><span class="co"># Get route statistics from a local GPX file</span></span></span>
 <span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">analyse_gpx</span><span class="op">(</span><span class="st">"path/to/file.gpx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get route statistics from a Strava link</span></span></span>
+<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">analyse_gpx</span><span class="op">(</span><span class="st">"https://www.strava.com/routes/3193200014155699162"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get route statistics from a RideWithGPS link</span></span></span>
+<span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">analyse_gpx</span><span class="op">(</span><span class="st">"https://ridewithgps.com/routes/39294504"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Generate a plot</span></span></span>
 <span class="r-in"><span><span class="fu">analyse_gpx</span><span class="op">(</span><span class="st">"path/to/file.gpx"</span>, return <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></span>
