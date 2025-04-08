@@ -94,17 +94,51 @@ and process it.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get route statistics from a RideWithGPS link</span></span></span>
 <span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">analyse_gpx</span><span class="op">(</span><span class="st">"https://ridewithgps.com/routes/39294504"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use the example GPX file included in the package</span></span></span>
 <span class="r-in"><span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Analyse the example GPX file</span></span></span>
 <span class="r-in"><span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">analyse_gpx</span><span class="op">(</span><span class="va">example_gpx_path</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $total_distance_km</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 42.81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $total_elevation_gain_m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 622.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $total_elevation_loss_m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 556.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $max_elevation_m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $min_elevation_m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 29.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $start_point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "The Gatehouse, Fieldway Crescent, Canonbury, Highbury, London Borough of Islington, London, Greater London, England, N5 1PZ, United Kingdom"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $end_point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Archway Road, London Borough of Haringey, London, Greater London, England, N6 4EJ, United Kingdom"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $p25_point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Highwood Hill, Mill Hill, London Borough of Barnet, London, Greater London, England, NW7 4HN, United Kingdom"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $p50_point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "36, Camlet Way, Hadley Wood, London Borough of Enfield, London, Greater London, England, EN4 0LJ, United Kingdom"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $p75_point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Lincoln Road, Colney Hatch, London Borough of Barnet, London, Greater London, England, N2 9DJ, United Kingdom"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Generate a plot of the example GPX file</span></span></span>
 <span class="r-in"><span><span class="fu">analyse_gpx</span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx </span>
+<span class="r-plt img"><img src="analyse_gpx-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="analyse_gpx-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
