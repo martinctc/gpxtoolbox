@@ -14,8 +14,8 @@ identify_geo(track_points, all = FALSE)
 }}
 
 \item{all}{Logical. If \code{TRUE}, identifies the location for all track points.
-If \code{FALSE} (default), only identifies the location for the start and end points
-of the route. Setting \code{all = FALSE} helps reduce API usage.}
+If \code{FALSE} (default), identifies the location for the start, end, and
+25\%, 50\%, and 75\% points of the route. Setting \code{all = FALSE} helps reduce API usage.}
 }
 \value{
 The input data frame with an additional column for geographic information:
@@ -36,7 +36,7 @@ active internet connection as the function queries an external API. Be mindful o
 # First read a GPX file
 track_data <- read_gpx_track("path/to/activity.gpx")
 
-# Identify geographic locations for start and end points only
+# Identify geographic locations for start, end, and key points
 track_data <- identify_geo(track_data)
 
 # Identify geographic locations for all points

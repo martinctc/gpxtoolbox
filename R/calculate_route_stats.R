@@ -9,6 +9,7 @@
 #'   \item ele_gain - elevation gain in meters
 #'   \item ele_loss - elevation loss in meters
 #'   \item time - timestamps in POSIXct format (optional, for time-based calculations)
+#'   \item location - (optional) geographic location of points (e.g., "City, Country")
 #' }
 #'
 #' @return A list containing the following route statistics:
@@ -20,6 +21,11 @@
 #'   \item min_elevation_m - minimum elevation in meters
 #'   \item total_time_hours - total activity time in hours (if time data available)
 #'   \item avg_speed - average speed in km/h (if time data available)
+#'   \item start_point - (optional) location of the starting point
+#'   \item end_point - (optional) location of the ending point
+#'   \item p25_point - (optional) location at 25% of the route
+#'   \item p50_point - (optional) location at 50% of the route
+#'   \item p75_point - (optional) location at 75% of the route
 #' }
 #'
 #' @details
@@ -68,6 +74,18 @@ calculate_route_stats <- function(track_points) {
     ),
     time_stats
   )
+  
+  # Add start, end, and key points if 'location' column exists
+  if ("location" %in% colnames(track_points)) {
+    n <- nrow(track_points)
+    stats <- c(stats, list(
+      start_point = track_points$location[1],
+      end_point = track_points$location[n],
+      p25_point = track_points$location[floor(n * 0.25)],
+      p50_point = track_points$location[floor(n * 0.5)],
+      p75_point = track_points$location[floor(n * 0.75)]
+    ))
+  }
   
   return(stats)
 }

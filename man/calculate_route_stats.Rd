@@ -14,6 +14,7 @@ calculate_route_stats(track_points)
 \item ele_gain - elevation gain in meters
 \item ele_loss - elevation loss in meters
 \item time - timestamps in POSIXct format (optional, for time-based calculations)
+\item location - (optional) geographic location of points (e.g., "City, Country")
 }}
 }
 \value{
@@ -26,6 +27,11 @@ A list containing the following route statistics:
 \item min_elevation_m - minimum elevation in meters
 \item total_time_hours - total activity time in hours (if time data available)
 \item avg_speed - average speed in km/h (if time data available)
+\item start_point - (optional) location of the starting point
+\item end_point - (optional) location of the ending point
+\item p25_point - (optional) location at 25\% of the route
+\item p50_point - (optional) location at 50\% of the route
+\item p75_point - (optional) location at 75\% of the route
 }
 }
 \description{

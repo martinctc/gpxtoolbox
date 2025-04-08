@@ -9,8 +9,8 @@
 #'   \item lat - latitude in decimal degrees
 #' }
 #' @param all Logical. If \code{TRUE}, identifies the location for all track points.
-#'   If \code{FALSE} (default), only identifies the location for the start and end points
-#'   of the route. Setting \code{all = FALSE} helps reduce API usage.
+#'   If \code{FALSE} (default), identifies the location for the start, end, and
+#'   25%, 50%, and 75% points of the route. Setting \code{all = FALSE} helps reduce API usage.
 #'
 #' @return The input data frame with an additional column for geographic information:
 #' \itemize{
@@ -26,7 +26,7 @@
 #' # First read a GPX file
 #' track_data <- read_gpx_track("path/to/activity.gpx")
 #'
-#' # Identify geographic locations for start and end points only
+#' # Identify geographic locations for start, end, and key points
 #' track_data <- identify_geo(track_data)
 #'
 #' # Identify geographic locations for all points
@@ -51,21 +51,17 @@ identify_geo <- function(track_points, all = FALSE) {
     }
   }
 
-  if(all == TRUE){
-
+  if (all == TRUE) {
     # Apply reverse geocoding to each point
     track_points$location <- mapply(get_location, track_points$lat, track_points$lon)
-
-  } else if(all == FALSE){
-
-    # Only apply to start and end tracking point
-    start_location <- get_location(track_points$lat[1], track_points$lon[1])
-    end_location <- get_location(track_points$lat[nrow(track_points)], track_points$lon[nrow(track_points)])
-
+  } else {
+    # Identify start, end, and key points (25%, 50%, 75%)
+    n <- nrow(track_points)
+    indices <- c(1, floor(n * 0.25), floor(n * 0.5), floor(n * 0.75), n)
+    locations <- sapply(indices, function(i) get_location(track_points$lat[i], track_points$lon[i]))
+    
     track_points$location <- NA  # Initialize with NA
-    track_points$location[1] <- start_location
-    track_points$location[nrow(track_points)] <- end_location
-
+    track_points$location[indices] <- locations
   }
   
   return(track_points)
