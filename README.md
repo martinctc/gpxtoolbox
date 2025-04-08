@@ -33,8 +33,11 @@ devtools::install_github("martinchan/gpxtoolbox")
 # Load the package
 library(gpxtoolbox)
 
-# Read a GPX file
-track_data <- read_gpx_track("path/to/activity.gpx")
+# Use the example GPX file included in the package
+example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+
+# Read the GPX file
+track_data <- read_gpx_track(example_gpx_path)
 
 # Calculate distances and elevation statistics
 track_data <- calculate_distance(track_data)
@@ -51,14 +54,15 @@ plot_route(track_data)
 ### Analyse a GPX File in One Step
 
 ```r
-# Analyse a GPX file and get summary statistics
-stats <- analyse_gpx("path/to/activity.gpx", return = "stats")
+# Analyse the example GPX file and get summary statistics
+example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+stats <- analyse_gpx(example_gpx_path, return = "stats")
 
 # Generate a plot of the route
-analyse_gpx("path/to/activity.gpx", return = "plot")
+analyse_gpx(example_gpx_path, return = "plot")
 
 # Get processed track points data
-track_data <- analyse_gpx("path/to/activity.gpx", return = "data")
+track_data <- analyse_gpx(example_gpx_path, return = "data")
 ```
 
 ## Key Functions

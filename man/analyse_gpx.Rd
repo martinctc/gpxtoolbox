@@ -7,7 +7,8 @@
 analyse_gpx(gpx_path, return = "stats")
 }
 \arguments{
-\item{gpx_path}{Character string specifying the path to the GPX file.}
+\item{gpx_path}{Character string specifying the path to the GPX file or a web link
+to a route on Strava or RideWithGPS.}
 
 \item{return}{Character string indicating the type of output to return.
 Options are:
@@ -30,10 +31,21 @@ metrics
 Processes a GPX file to extract route information, calculate metrics such as
 distance and elevation, and provide summary statistics or visualization.
 }
+\details{
+If a web link is provided for \code{gpx_path}, the function will automatically
+construct the appropriate GPX export URL, download the file to a temporary location,
+and process it.
+}
 \examples{
 \dontrun{
-# Get route statistics
+# Get route statistics from a local GPX file
 stats <- analyse_gpx("path/to/file.gpx")
+
+# Get route statistics from a Strava link
+stats <- analyse_gpx("https://www.strava.com/routes/3193200014155699162")
+
+# Get route statistics from a RideWithGPS link
+stats <- analyse_gpx("https://ridewithgps.com/routes/39294504")
 
 # Generate a plot
 analyse_gpx("path/to/file.gpx", return = "plot")
