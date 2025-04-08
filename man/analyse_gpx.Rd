@@ -9,10 +9,11 @@ analyse_gpx(gpx_path, return = "stats")
 \arguments{
 \item{gpx_path}{Character string specifying the path to the GPX file.}
 
-\item{return}{Character string indicating the type of output to return. Options are:
+\item{return}{Character string indicating the type of output to return.
+Options are:
 \itemize{
 \item "stats" (default): Returns a list of summary statistics
-\item "plot": Generates a plot of the route and returns track points
+\item "plot": Generates a plot of the route and elevation profile
 \item "data": Returns the processed track points data
 }}
 }
@@ -20,24 +21,25 @@ analyse_gpx(gpx_path, return = "stats")
 Depending on the \code{return} parameter:
 \itemize{
 \item If "stats": A named list of route statistics
-\item If "plot": Generates a plot and returns the track points data
-\item If "data": A data frame of processed track points with calculated metrics
+\item If "plot": Generates a plot
+\item If "data": A data frame of processed track points with calculated
+metrics
 }
 }
 \description{
-Processes a GPX file to extract route information, calculate metrics such as distance and elevation,
-and provide summary statistics or visualization.
+Processes a GPX file to extract route information, calculate metrics such as
+distance and elevation, and provide summary statistics or visualization.
 }
 \examples{
 \dontrun{
 # Get route statistics
-stats <- analyze_gpx("path/to/file.gpx")
+stats <- analyse_gpx("path/to/file.gpx")
 
 # Generate a plot
-analyze_gpx("path/to/file.gpx", return = "plot")
+analyse_gpx("path/to/file.gpx", return = "plot")
 
 # Get processed data
-track_data <- analyze_gpx("path/to/file.gpx", return = "data")
+track_data <- analyse_gpx("path/to/file.gpx", return = "data")
 }
 
 }

@@ -28,14 +28,15 @@
 #' 
 #' @importFrom sf st_read
 #' @importFrom sf st_coordinates
-#' 
+#' @importFrom dplyr tibble 
+#'
 #' @export
 read_gpx_track <- function(gpx_path) {
   # Read the GPX file as spatial data
   gpx_data <- st_read(gpx_path, layer = "track_points", quiet = TRUE)
   
   # Extract relevant columns and convert to data frame
-  track_points <- data.frame(
+  track_points <- dplyr::tibble(
     lon = st_coordinates(gpx_data)[, "X"],
     lat = st_coordinates(gpx_data)[, "Y"],
     ele = gpx_data$ele,

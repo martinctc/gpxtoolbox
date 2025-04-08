@@ -17,4 +17,5 @@ Imports:
     dplyr,
     geosphere,
     ggplot2,
-    sf
+    sf,
+    httr
