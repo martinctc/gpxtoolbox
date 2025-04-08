@@ -9,7 +9,7 @@ Description: Provides functions for processing, analyzing, and visualizing GPS t
     distance, elevation gain/loss, and speed, as well as visualization capabilities
     for elevation profiles and route maps. Designed for outdoor enthusiasts, athletes,
     and researchers who work with GPS tracking data.
-License: MIT + file LICENSE
+License: MIT + file LICENSE 2025
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
