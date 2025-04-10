@@ -1,17 +1,17 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>/404.html</loc></url>
-<url><loc>/LICENSE-text.html</loc></url>
-<url><loc>/articles/gpxtoolbox.html</loc></url>
-<url><loc>/articles/index.html</loc></url>
-<url><loc>/authors.html</loc></url>
-<url><loc>/index.html</loc></url>
-<url><loc>/reference/analyse_gpx.html</loc></url>
-<url><loc>/reference/calculate_distance.html</loc></url>
-<url><loc>/reference/calculate_elevation_stats.html</loc></url>
-<url><loc>/reference/calculate_route_stats.html</loc></url>
-<url><loc>/reference/identify_geo.html</loc></url>
-<url><loc>/reference/index.html</loc></url>
-<url><loc>/reference/plot_route.html</loc></url>
-<url><loc>/reference/read_gpx_track.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/404.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/LICENSE-text.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/articles/gpxtoolbox.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/articles/index.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/authors.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/index.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/analyse_gpx.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/calculate_distance.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/calculate_elevation_stats.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/calculate_route_stats.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/identify_geo.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/index.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/plot_route.html</loc></url>
+<url><loc>https://martinctc.github.io/gpxtoolbox/reference/read_gpx_track.html</loc></url>
 </urlset>
 
