@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   gpxtoolbox: gpxtoolbox.html
-last_built: 2025-04-10T17:27Z
+last_built: 2025-04-10T17:31Z
 urls:
   reference: https://martinctc.github.io/gpxtoolbox/reference
   article: https://martinctc.github.io/gpxtoolbox/articles

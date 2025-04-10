@@ -117,6 +117,15 @@ points from a GPX file.</p>
 <span></span>
 <span><span class="co"># View the first few rows of the track data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
+<span><span class="co">##      lon   lat   ele time  </span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">0.105</span>  51.5  42.8 <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> -<span style="color: #BB0000;">0.105</span>  51.5  42.7 <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> -<span style="color: #BB0000;">0.105</span>  51.5  42.1 <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> -<span style="color: #BB0000;">0.105</span>  51.5  41.5 <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> -<span style="color: #BB0000;">0.105</span>  51.5  41.4 <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> -<span style="color: #BB0000;">0.106</span>  51.5  40.7 <span style="color: #BB0000;">NA</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="calculate-metrics">Calculate Metrics<a class="anchor" aria-label="anchor" href="#calculate-metrics"></a>
@@ -124,7 +133,7 @@ points from a GPX file.</p>
 <p>Use <code><a href="../reference/calculate_distance.html">calculate_distance()</a></code> and
 <code><a href="../reference/calculate_elevation_stats.html">calculate_elevation_stats()</a></code> to compute distances and
 elevation statistics.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate distances</span></span>
 <span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_distance.html">calculate_distance</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span>
 <span></span>
@@ -133,6 +142,17 @@ elevation statistics.</p>
 <span></span>
 <span><span class="co"># View the updated track data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 10</span></span></span>
+<span><span class="co">##      lon   lat   ele time   distance cumulative_distance ele_gain</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">0.105</span>  51.5  42.8 <span style="color: #BB0000;">NA</span>         0                0              0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> -<span style="color: #BB0000;">0.105</span>  51.5  42.7 <span style="color: #BB0000;">NA</span>         2.36             0.002<span style="text-decoration: underline;">36</span>        0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> -<span style="color: #BB0000;">0.105</span>  51.5  42.1 <span style="color: #BB0000;">NA</span>         9.42             0.011<span style="text-decoration: underline;">8</span>         0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> -<span style="color: #BB0000;">0.105</span>  51.5  41.5 <span style="color: #BB0000;">NA</span>        11.2              0.023<span style="text-decoration: underline;">0</span>         0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> -<span style="color: #BB0000;">0.105</span>  51.5  41.4 <span style="color: #BB0000;">NA</span>         2.08             0.025<span style="text-decoration: underline;">0</span>         0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> -<span style="color: #BB0000;">0.106</span>  51.5  40.7 <span style="color: #BB0000;">NA</span>        12.3              0.037<span style="text-decoration: underline;">4</span>         0</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: ele_loss &lt;dbl&gt;, cumulative_ele_gain &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   cumulative_ele_loss &lt;dbl&gt;</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="generate-route-statistics">Generate Route Statistics<a class="anchor" aria-label="anchor" href="#generate-route-statistics"></a>
@@ -140,21 +160,36 @@ elevation statistics.</p>
 <p>Use <code><a href="../reference/calculate_route_stats.html">calculate_route_stats()</a></code> to summarise route
 statistics such as total distance, elevation gain, and average
 speed.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate route statistics</span></span>
 <span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_route_stats.html">calculate_route_stats</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print the statistics</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $total_distance_km</span></span>
+<span><span class="co">## [1] 42.81</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $total_elevation_gain_m</span></span>
+<span><span class="co">## [1] 622.2</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $total_elevation_loss_m</span></span>
+<span><span class="co">## [1] 556.6</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $max_elevation_m</span></span>
+<span><span class="co">## [1] 143</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $min_elevation_m</span></span>
+<span><span class="co">## [1] 29.9</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="visualise-the-route">Visualise the Route<a class="anchor" aria-label="anchor" href="#visualise-the-route"></a>
 </h3>
 <p>Use <code><a href="../reference/plot_route.html">plot_route()</a></code> to create visualisations of the route,
 including an elevation profile and a route map.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot the route</span></span>
 <span><span class="fu"><a href="../reference/plot_route.html">plot_route</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gpxtoolbox_files/figure-html/unnamed-chunk-5-1.png" width="700"><img src="gpxtoolbox_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="analyse-a-gpx-file-in-one-step">Analyse a GPX File in One Step<a class="anchor" aria-label="anchor" href="#analyse-a-gpx-file-in-one-step"></a>
@@ -162,16 +197,50 @@ including an elevation profile and a route map.</p>
 <p>The <code><a href="../reference/analyse_gpx.html">analyse_gpx()</a></code> function provides a high-level
 interface to process a GPX file and return statistics, plots, or
 processed data.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Analyse the example GPX file and get summary statistics</span></span>
-<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"stats"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Generate a plot of the route</span></span>
-<span><span class="fu"><a href="../reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Get processed track points data</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"stats"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx</span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $total_distance_km</span></span>
+<span><span class="co">## [1] 42.81</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $total_elevation_gain_m</span></span>
+<span><span class="co">## [1] 622.2</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $total_elevation_loss_m</span></span>
+<span><span class="co">## [1] 556.6</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $max_elevation_m</span></span>
+<span><span class="co">## [1] 143</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $min_elevation_m</span></span>
+<span><span class="co">## [1] 29.9</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $start_point</span></span>
+<span><span class="co">## [1] "The Gatehouse, Fieldway Crescent, Canonbury, Highbury, London Borough of Islington, London, Greater London, England, N5 1PZ, United Kingdom"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $end_point</span></span>
+<span><span class="co">## [1] "Archway Road, London Borough of Haringey, London, Greater London, England, N6 4EJ, United Kingdom"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $p25_point</span></span>
+<span><span class="co">## [1] "Highwood Hill, Mill Hill, London Borough of Barnet, London, Greater London, England, NW7 4HN, United Kingdom"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $p50_point</span></span>
+<span><span class="co">## [1] "36, Camlet Way, Hadley Wood, London Borough of Enfield, London, Greater London, England, EN4 0LJ, United Kingdom"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $p75_point</span></span>
+<span><span class="co">## [1] "Lincoln Road, Colney Hatch, London Borough of Barnet, London, Greater London, England, N2 9DJ, United Kingdom"</span></span></code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate a plot of the route</span></span>
+<span><span class="fu"><a href="../reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx</span></span></code></pre>
+<p><img src="gpxtoolbox_files/figure-html/unnamed-chunk-6-1.png" width="700"><img src="gpxtoolbox_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get processed track points data</span></span>
 <span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -180,7 +249,7 @@ processed data.</p>
 <p>You can also analyse GPX files from web links (e.g., Strava or
 RideWithGPS). The function will automatically download the GPX file and
 process it.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Analyse a GPX file from a Strava link</span></span>
 <span><span class="co"># stats &lt;- analyse_gpx("https://www.strava.com/routes/3193200014155699162")</span></span>
 <span></span>
