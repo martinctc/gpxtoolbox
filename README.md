@@ -6,6 +6,21 @@ Tools for analysing and visualising GPX files.
 
 `gpxtoolbox` is an R package designed for processing, analysing, and visualising GPS track data from GPX files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps. This package is ideal for outdoor enthusiasts, athletes, and researchers working with GPS tracking data.
 
+One of the more powerful features from this package is `gen_description()`, which uses LLMs to generate a title and description for a given GPX file. It uses the information extracted from a GPX file, including distance, elevation, and geography to simulate a title and description. {ellmer} is used to interface with LLMs, providing access from a wide range of options including Azure OpenAI, Anthropic Claude, and Google Gemini. 
+
+An example of the output would be:
+```
+**Title:** Tonbridge Castle Loop - 112.5 km, 903 m Elevation Gain
+
+**Description:**  
+Experience an exhilarating adventure on this scenic loop that starts and ends at the historic Tonbridge Castle. Covering a distance of 112.52 km with a total elevation gain of 902.97 m, this route showcases the beautiful Kent countryside. 
+
+At the 25% mark, you'll pass Pearsons Green Road in Paddock Wood, where the lush greenery sets the perfect backdrop for your journey. Midway, at Bitchet Green, soak in picturesque views that highlight the charm of Seal and Sevenoaks. As you approach the 75% point, enjoy the sights at Pootings Oast in Crockham Hill, an idyllic area known for its rolling hills and quaint charm.
+
+This route's elevation variations, featuring a maximum rise up to 242 m, ensure that both challenge and reward await every cyclist, making it ideal for those seeking a blend of stunning landscapes and a fulfilling ride. Whether youâ€™re out for a leisure ride or training for a longer event, this loop promises to deliver on both adventure and scenic beauty.
+```
+
+
 ## Installation
 
 You can install the development version of `gpxtoolbox` from GitHub:
@@ -24,6 +39,7 @@ devtools::install_github("martinchan/gpxtoolbox")
 - **Calculate Metrics**: Compute distances, elevation gain/loss, and cumulative metrics.
 - **Visualise Routes**: Create elevation profiles and route maps using `ggplot2`.
 - **Summarise Statistics**: Generate summary statistics for distance, elevation, and time.
+- **Generate Titles and Descriptions from GPX files**: Use LLMs to generate titles and descriptions for your GPX files.
 
 ## Usage
 
