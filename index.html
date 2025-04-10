@@ -60,12 +60,22 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p><code>gpxtoolbox</code> is an R package designed for processing, analysing, and visualising GPS track data from GPX files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps. This package is ideal for outdoor enthusiasts, athletes, and researchers working with GPS tracking data.</p>
+<p>One of the more powerful features from this package is <code><a href="reference/gen_description.html">gen_description()</a></code>, which uses LLMs to generate a title and description for a given GPX file. It uses the information extracted from a GPX file, including distance, elevation, and geography to simulate a title and description. {ellmer} is used to interface with LLMs, providing access from a wide range of options including Azure OpenAI, Anthropic Claude, and Google Gemini.</p>
+<p>An example of the output would be:</p>
+<pre><code>**Title:** Tonbridge Castle Loop - 112.5 km, 903 m Elevation Gain
+
+**Description:**
+Experience an exhilarating adventure on this scenic loop that starts and ends at the historic Tonbridge Castle. Covering a distance of 112.52 km with a total elevation gain of 902.97 m, this route showcases the beautiful Kent countryside.
+
+At the 25% mark, you'll pass Pearsons Green Road in Paddock Wood, where the lush greenery sets the perfect backdrop for your journey. Midway, at Bitchet Green, soak in picturesque views that highlight the charm of Seal and Sevenoaks. As you approach the 75% point, enjoy the sights at Pootings Oast in Crockham Hill, an idyllic area known for its rolling hills and quaint charm.
+
+This route's elevation variations, featuring a maximum rise up to 242 m, ensure that both challenge and reward await every cyclist, making it ideal for those seeking a blend of stunning landscapes and a fulfilling ride. Whether youâ€™re out for a leisure ride or training for a longer event, this loop promises to deliver on both adventure and scenic beauty.</code></pre>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version of <code>gpxtoolbox</code> from GitHub:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install devtools if not already installed</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span></span>
@@ -84,6 +94,8 @@
 <strong>Visualise Routes</strong>: Create elevation profiles and route maps using <code>ggplot2</code>.</li>
 <li>
 <strong>Summarise Statistics</strong>: Generate summary statistics for distance, elevation, and time.</li>
+<li>
+<strong>Generate Titles and Descriptions from GPX files</strong>: Use LLMs to generate titles and descriptions for your GPX files.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -92,7 +104,7 @@
 <div class="section level3">
 <h3 id="example-workflow">Example Workflow<a class="anchor" aria-label="anchor" href="#example-workflow"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gpxtoolbox</span><span class="op">)</span></span>
 <span></span>
@@ -116,7 +128,7 @@
 <div class="section level3">
 <h3 id="analyse-a-gpx-file-in-one-step">Analyse a GPX File in One Step<a class="anchor" aria-label="anchor" href="#analyse-a-gpx-file-in-one-step"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Analyse the example GPX file and get summary statistics</span></span>
 <span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span>
 <span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"stats"</span><span class="op">)</span></span>
