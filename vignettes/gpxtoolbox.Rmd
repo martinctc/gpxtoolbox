@@ -33,7 +33,7 @@ The package includes an example GPX file, `icc_intro_ride.gpx`, which is used in
 
 ## Load the Package
 
-```r
+```{r}
 library(gpxtoolbox)
 ```
 
@@ -41,7 +41,7 @@ library(gpxtoolbox)
 
 Use the `read_gpx_track()` function to extract track points from a GPX file.
 
-```r
+```{r}
 # Path to the example GPX file
 example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
 
@@ -56,7 +56,7 @@ head(track_data)
 
 Use `calculate_distance()` and `calculate_elevation_stats()` to compute distances and elevation statistics.
 
-```r
+```{r}
 # Calculate distances
 track_data <- calculate_distance(track_data)
 
@@ -71,7 +71,7 @@ head(track_data)
 
 Use `calculate_route_stats()` to summarise route statistics such as total distance, elevation gain, and average speed.
 
-```r
+```{r}
 # Calculate route statistics
 stats <- calculate_route_stats(track_data)
 
@@ -83,7 +83,7 @@ print(stats)
 
 Use `plot_route()` to create visualisations of the route, including an elevation profile and a route map.
 
-```r
+```{r}
 # Plot the route
 plot_route(track_data)
 ```
@@ -92,7 +92,7 @@ plot_route(track_data)
 
 The `analyse_gpx()` function provides a high-level interface to process a GPX file and return statistics, plots, or processed data.
 
-```r
+```{r}
 # Analyse the example GPX file and get summary statistics
 stats <- analyse_gpx(example_gpx_path, return = "stats")
 print(stats)
