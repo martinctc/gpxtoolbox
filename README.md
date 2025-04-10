@@ -93,10 +93,12 @@ track_data <- analyse_gpx(example_gpx_path, return = "data")
 ## Dependencies
 
 The package depends on the following R packages:
+
 - `sf`: For reading GPX files.
 - `dplyr`: For data manipulation.
 - `geosphere`: For distance calculations.
 - `ggplot2`: For creating visualisations.
+- `ellmer`: For interfacing with LLMs.
 
 ## License
 
