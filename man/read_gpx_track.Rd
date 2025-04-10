@@ -27,12 +27,13 @@ layer, which contains the sequential points that make up a GPS track. Time value
 converted to POSIXct objects in UTC timezone.
 }
 \examples{
-\dontrun{
+# Use the example GPX file included in the package
+example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+
 # Read track points from a GPX file
-track_data <- read_gpx_track("path/to/activity.gpx")
+track_data <- read_gpx_track(example_gpx_path)
 
 # View the first few points
 head(track_data)
-}
 
 }

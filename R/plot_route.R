@@ -21,16 +21,17 @@
 #' Both plots are created using ggplot2 with minimal styling.
 #' 
 #' @examples
-#' \dontrun{
+#' # Use the example GPX file included in the package
+#' example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+#' 
 #' # First read a GPX file
-#' track_data <- read_gpx_track("path/to/activity.gpx")
+#' track_data <- read_gpx_track(example_gpx_path)
 #' 
 #' # Calculate cumulative distance (required for plotting)
 #' track_data <- calculate_distance(track_data)
 #' 
 #' # Plot the route visualisations
 #' plot_route(track_data)
-#' }
 #' 
 #' @importFrom ggplot2 ggplot aes geom_line geom_path labs theme_minimal coord_quickmap
 #' 
