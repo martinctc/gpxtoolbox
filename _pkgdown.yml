@@ -19,6 +19,9 @@ navbar:
       menu: 
         - text: "Introduction to gpxtoolbox"
           href: articles/gpxtoolbox.html
+        - text: "Generate Route Titles and Descriptions from GPX with LLMs"
+          href: articles/gen_description.html
+          
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/martinctc/gpxtoolbox/
