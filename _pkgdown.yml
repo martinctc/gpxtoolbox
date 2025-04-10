@@ -1,0 +1,10 @@
+navbar:
+  structure:
+    - text: Home
+      href: index.html
+    - text: Reference
+      href: reference/index.html
+    - text: Articles
+      menu:
+        - text: "Introduction to gpxtoolbox"
+          href: articles/gpxtoolbox.html
