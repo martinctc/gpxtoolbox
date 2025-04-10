@@ -5,11 +5,20 @@ template:
 
 navbar:
   structure:
-    - text: Home
+        left:  [home, reference, articles]
+        right: [search, github]
+  components:
+    home:
+      text: Home
       href: index.html
-    - text: Reference
+    reference:
+      text: Reference
       href: reference/index.html
-    - text: Articles
-      menu:
+    articles:
+      text: Articles
+      menu: 
         - text: "Introduction to gpxtoolbox"
           href: articles/gpxtoolbox.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/martinctc/gpxtoolbox/
