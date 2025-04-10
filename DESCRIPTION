@@ -19,7 +19,8 @@ Imports:
     geosphere,
     ggplot2,
     sf,
-    httr
+    httr,
+    ellmer
 Suggests:  
     rmarkdown,
     knitr

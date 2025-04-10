@@ -1,0 +1,3 @@
+I have the following summary details from a GPX file, which contains distance, elevation, start point, end point, and the location passed by at 25%, 50%, and 75% of the route. Please help me come up with a title and description for this GPX route. If the start and end points are very similar, we may choose to call it a 'loop'. If the route contains significant elevation, we can describe it with 'hills', 'hilly', or 'climb'. Perhaps use the pass-by locations to provide context on where the route passes by. An example could be, "Surrey Hills Loop - 56km, 1080m el".
+
+Please create a title and description using the following details:
