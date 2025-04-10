@@ -75,16 +75,19 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Use the example GPX file included in the package</span></span></span>
+<span class="r-in"><span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># First read a GPX file</span></span></span>
-<span class="r-in"><span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_gpx_track.html">read_gpx_track</a></span><span class="op">(</span><span class="st">"path/to/activity.gpx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_gpx_track.html">read_gpx_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate cumulative distance (required for plotting)</span></span></span>
 <span class="r-in"><span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="calculate_distance.html">calculate_distance</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the route visualisations</span></span></span>
 <span class="r-in"><span><span class="fu">plot_route</span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-plt img"><img src="plot_route-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot_route-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
