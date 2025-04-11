@@ -15,6 +15,7 @@
 #' @param api_key Character string. The API key for the LLM service.
 #' @param model Character string. The model to use for the LLM (e.g.,
 #'   "gpt-3.5-turbo").
+#' @param prompt Character string. A custom prompt to use for generating the title and description. If set to NULL (default), the function uses the default prompt stored in the package.
 #' @param ... Additional arguments passed to the `ellmer::chat_completion()`
 #'   function.
 #'
@@ -41,30 +42,35 @@
 #' @import ellmer
 #' 
 #' @export
-gen_description <- function(stats, platform, api_key, model, ...) {
+gen_description <- function(stats, platform, api_key, model, prompt = NULL, ...) {
 
   # Construct the prompt
-  path_to_md <- paste0(path.package("gpxtoolbox"), "/desc_prompt.md")
-  prompt_md <- suppressWarnings(readLines(path_to_md))
+  if (is.null(prompt)) {
+    path_to_md <- paste0(path.package("gpxtoolbox"), "/desc_prompt.md")
+    prompt_md <- suppressWarnings(readLines(path_to_md))
+  } else {
+    prompt_md <- prompt
+  }
 
   prompt <- paste0(
-    prompt_md,
-    "\n\n",
-    "Please create a title and description using the following details:\n\n",
-    "Total Distance: ", stats$total_distance_km, " km\n",
-    "Total Elevation Gain: ", stats$total_elevation_gain_m, " m\n",
-    "Total Elevation Loss: ", stats$total_elevation_loss_m, " m\n",
-    "Maximum Elevation: ", stats$max_elevation_m, " m\n",
-    "Minimum Elevation: ", stats$min_elevation_m, " m\n",
-    if (!is.null(stats$total_time_hours)) paste0("Total Time: ", stats$total_time_hours, " hours\n") else "",
-    if (!is.null(stats$avg_speed)) paste0("Average Speed: ", stats$avg_speed, " km/h\n") else "",
-    if (!is.null(stats$start_point)) paste0("Start Point: ", stats$start_point, "\n") else "",
-    if (!is.null(stats$end_point)) paste0("End Point: ", stats$end_point, "\n") else "",
-    if (!is.null(stats$p25_point)) paste0("Point at 25%: ", stats$p25_point, "\n") else "",
-    if (!is.null(stats$p50_point)) paste0("Point at 50%: ", stats$p50_point, "\n") else "",
-    if (!is.null(stats$p75_point)) paste0("Point at 75%: ", stats$p75_point, "\n") else "",
-    "\nPlease provide a title and description that highlights the key features of this route."
-  )
+      prompt_md,
+      "\n\n",
+      "Please create a title and description using the following details:\n\n",
+      "Total Distance: ", stats$total_distance_km, " km\n",
+      "Total Elevation Gain: ", stats$total_elevation_gain_m, " m\n",
+      "Total Elevation Loss: ", stats$total_elevation_loss_m, " m\n",
+      "Maximum Elevation: ", stats$max_elevation_m, " m\n",
+      "Minimum Elevation: ", stats$min_elevation_m, " m\n",
+      if (!is.null(stats$total_time_hours)) paste0("Total Time: ", stats$total_time_hours, " hours\n") else "",
+      if (!is.null(stats$avg_speed)) paste0("Average Speed: ", stats$avg_speed, " km/h\n") else "",
+      if (!is.null(stats$start_point)) paste0("Start Point: ", stats$start_point, "\n") else "",
+      if (!is.null(stats$end_point)) paste0("End Point: ", stats$end_point, "\n") else "",
+      if (!is.null(stats$p25_point)) paste0("Point at 25%: ", stats$p25_point, "\n") else "",
+      if (!is.null(stats$p50_point)) paste0("Point at 50%: ", stats$p50_point, "\n") else "",
+      if (!is.null(stats$p75_point)) paste0("Point at 75%: ", stats$p75_point, "\n") else "",
+      "\nPlease provide a title and description that highlights the key features of this route."
+    )
+
   
   # Function to call from ellmer
   fn_ellmer <- paste0("chat_", platform)
