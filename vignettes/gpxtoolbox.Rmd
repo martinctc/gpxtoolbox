@@ -24,7 +24,7 @@ You can install the development version of `gpxtoolbox` from GitHub:
 install.packages("devtools")
 
 # Install gpxtoolbox
-devtools::install_github("martinchan/gpxtoolbox")
+devtools::install_github("martinctc/gpxtoolbox")
 ```
 
 # Example Workflow
