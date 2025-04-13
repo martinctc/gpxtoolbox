@@ -30,7 +30,7 @@ You can install the development version of `gpxtoolbox` from GitHub:
 install.packages("devtools")
 
 # Install gpxtoolbox
-devtools::install_github("martinchan/gpxtoolbox")
+devtools::install_github("martinctc/gpxtoolbox")
 ```
 
 ## Key Features
@@ -128,7 +128,7 @@ This package is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests on the [GitHub repository](https://github.com/martinchan/gpxtoolbox).
+Contributions are welcome! Feel free to open issues or submit pull requests on the [GitHub repository](https://github.com/martinctc/gpxtoolbox).
 
 ## Acknowledgements
 
