@@ -23,4 +23,5 @@ Imports:
     ellmer
 Suggests:  
     rmarkdown,
-    knitr
+    knitr,
+    testthat (>= 3.0.0)
