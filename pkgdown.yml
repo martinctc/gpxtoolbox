@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   gen_description: gen_description.html
   gpxtoolbox: gpxtoolbox.html
-last_built: 2025-04-13T16:18Z
+last_built: 2025-04-14T09:02Z
 urls:
   reference: https://martinctc.github.io/gpxtoolbox/reference
   article: https://martinctc.github.io/gpxtoolbox/articles
