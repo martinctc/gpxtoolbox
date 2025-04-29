@@ -4,7 +4,7 @@
 \alias{analyse_gpx}
 \title{Analyse GPX File}
 \usage{
-analyse_gpx(gpx_path, return = "stats")
+analyse_gpx(gpx_path, return = "stats", plot_mode = "ggplot")
 }
 \arguments{
 \item{gpx_path}{Character string specifying the path to the GPX file or a web link
@@ -14,8 +14,16 @@ to a route on Strava or RideWithGPS.}
 Options are:
 \itemize{
 \item "stats" (default): Returns a list of summary statistics
-\item "plot": Generates a plot of the route and elevation profile
+\item "plot": Generates a plot of the route and elevation profile. Supports
+additional modes via the \code{plot_route()} function (e.g., "ggplot" or "leaflet").
 \item "data": Returns the processed track points data
+}}
+
+\item{plot_mode}{Character string. The plotting mode to use when \code{return = "plot"}.
+Options are:
+\itemize{
+\item "ggplot" (default): Uses ggplot2 for visualisation.
+\item "leaflet": Uses the leaflet package to create an interactive map.
 }}
 }
 \value{

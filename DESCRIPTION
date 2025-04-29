@@ -20,7 +20,8 @@ Imports:
     ggplot2,
     sf,
     httr,
-    ellmer
+    ellmer,
+    leaflet
 Suggests:  
     rmarkdown,
     knitr,

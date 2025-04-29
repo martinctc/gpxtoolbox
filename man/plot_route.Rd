@@ -4,7 +4,7 @@
 \alias{plot_route}
 \title{Plot GPX route visualisation}
 \usage{
-plot_route(track_points)
+plot_route(track_points, mode = "ggplot")
 }
 \arguments{
 \item{track_points}{A data frame containing track points with the following required columns:
@@ -14,20 +14,26 @@ plot_route(track_points)
 \item ele - elevation in metres
 \item cumulative_distance - distance in kilometres
 }}
+
+\item{mode}{Character string. The plotting mode to use. Options are:
+\itemize{
+\item "ggplot" (default): Uses ggplot2 for visualisation.
+\item "leaflet": Uses the leaflet package to create an interactive map.
+}}
 }
 \value{
-Plots are displayed in the current graphics device. The function does not return a value.
+For "ggplot" mode, plots are displayed in the current graphics device.
+For "leaflet" mode, an interactive map is returned.
 }
 \description{
 Creates visualisations of a GPS route, including an elevation profile and a route map.
 }
 \details{
-This function creates two visualisations:
+This function creates visualisations based on the selected mode:
 \itemize{
-\item An elevation profile showing elevation changes against distance travelled
-\item A simple route map showing the geographical path
+\item "ggplot": An elevation profile and a static route map.
+\item "leaflet": An interactive map with a greyscale tile layer (CartoDB.Positron).
 }
-Both plots are created using ggplot2 with minimal styling.
 }
 \examples{
 # Use the example GPX file included in the package
@@ -40,6 +46,7 @@ track_data <- read_gpx_track(example_gpx_path)
 track_data <- calculate_distance(track_data)
 
 # Plot the route visualisations
-plot_route(track_data)
+plot_route(track_data, mode = "ggplot")
+plot_route(track_data, mode = "leaflet")
 
 }

@@ -11,10 +11,16 @@
 #'   Options are:
 #'   \itemize{
 #'     \item "stats" (default): Returns a list of summary statistics
-#'     \item "plot": Generates a plot of the route and elevation profile
+#'     \item "plot": Generates a plot of the route and elevation profile. Supports
+#'       additional modes via the `plot_route()` function (e.g., "ggplot" or "leaflet").
 #'     \item "data": Returns the processed track points data
 #'   }
-#' 
+#' @param plot_mode Character string. The plotting mode to use when `return = "plot"`. 
+#'   Options are:
+#'   \itemize{
+#'     \item "ggplot" (default): Uses ggplot2 for visualisation.
+#'     \item "leaflet": Uses the leaflet package to create an interactive map.
+#'   }
 #' @return Depending on the \code{return} parameter:
 #'   \itemize{
 #'     \item If "stats": A named list of route statistics
@@ -52,7 +58,7 @@
 #'
 #' @importFrom httr GET write_disk status_code
 #' @export
-analyse_gpx <- function(gpx_path, return = "stats") {
+analyse_gpx <- function(gpx_path, return = "stats", plot_mode = "ggplot") {
   # Helper function to download GPX file from a web link
   download_gpx <- function(link) {
     if (grepl("strava.com/routes", link)) {
@@ -102,13 +108,13 @@ analyse_gpx <- function(gpx_path, return = "stats") {
   # Calculate and print summary statistics
   stats <- calculate_route_stats(track_points)
 
-  if(return == "plot"){
-    # Plot route
-    plot_route(track_points)
-  } else if(return == "stats"){
+  if (return == "plot") {
+    # Plot route with the specified mode
+    plot_route(track_points, mode = plot_mode)
+  } else if (return == "stats") {
     # Return statistics
     return(stats)
-  } else if(return == "data"){
+  } else if (return == "data") {
     # Return data
     return(track_points)
   }
