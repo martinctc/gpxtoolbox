@@ -1,10 +1,15 @@
 # gpxtoolbox
 
-Tools for analysing and visualising GPX files.
+Tools for analysing and visualising GPX and FIT files.
 
 ## Overview
 
-`gpxtoolbox` is an R package designed for processing, analysing, and visualising GPS track data from GPX files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps. This package is ideal for outdoor enthusiasts, athletes, and researchers working with GPS tracking data.
+`gpxtoolbox` is an R package designed for processing, analysing, and visualising GPS track data from GPX and FIT files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps. This package is ideal for outdoor enthusiasts, athletes, and researchers working with GPS tracking data.
+
+### Supported File Formats
+
+- **GPX files**: Standard GPS data format used by many fitness apps and GPS devices
+- **FIT files**: Garmin's proprietary format used by Garmin devices and many other fitness devices
 
 One of the more powerful features from this package is `gen_description()`, which uses LLMs to generate a title and description for a given GPX file. It uses the information extracted from a GPX file, including distance, elevation, and geography to simulate a title and description. {ellmer} is used to interface with LLMs, providing access from a wide range of options including Azure OpenAI, Anthropic Claude, and Google Gemini. 
 
@@ -33,15 +38,46 @@ install.packages("devtools")
 devtools::install_github("martinctc/gpxtoolbox")
 ```
 
+### FIT File Support
+
+To use FIT files, you'll also need to install the `FITfileR` package:
+
+```r
+# Install FITfileR for FIT file support
+install.packages("FITfileR")
+```
+
 ## Key Features
 
-- **Read GPX Files**: Extract track points, including latitude, longitude, elevation, and time.
+- **Read GPX and FIT Files**: Extract track points, including latitude, longitude, elevation, and time from both GPX and FIT formats.
 - **Calculate Metrics**: Compute distances, elevation gain/loss, and cumulative metrics.
 - **Visualise Routes**: Create elevation profiles and route maps using `ggplot2`.
 - **Summarise Statistics**: Generate summary statistics for distance, elevation, and time.
-- **Generate Titles and Descriptions from GPX files**: Use LLMs to generate titles and descriptions for your GPX files.
+- **Generate Titles and Descriptions from track files**: Use LLMs to generate titles and descriptions for your GPX and FIT files.
 
 ## Usage
+
+### Working with GPX and FIT Files
+
+The package now supports both GPX and FIT files with unified functions that automatically detect the file format:
+
+```r
+library(gpxtoolbox)
+
+# Works with GPX files
+example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+track_data <- read_track(example_gpx_path)
+
+# Also works with FIT files (requires FITfileR package)
+# track_data <- read_track("path/to/your_activity.fit")
+
+# Get complete analysis
+stats <- analyse_track(example_gpx_path)
+print(stats)
+
+# Generate plots
+analyse_track(example_gpx_path, return = "plot")
+```
 
 ### Example Workflow
 
@@ -52,8 +88,8 @@ library(gpxtoolbox)
 # Use the example GPX file included in the package
 example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
 
-# Read the GPX file
-track_data <- read_gpx_track(example_gpx_path)
+# Read the track file (works with both .gpx and .fit files)
+track_data <- read_track(example_gpx_path)
 
 # Calculate distances and elevation statistics
 track_data <- calculate_distance(track_data)
@@ -67,11 +103,16 @@ print(stats)
 plot_route(track_data)
 ```
 
-### Analyse a GPX File in One Step
+### Analyse a Track File in One Step
 
 ```r
-# Analyse the example GPX file and get summary statistics
+# Analyse any track file (GPX or FIT) and get summary statistics
 example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+
+# New generic function that works with both formats
+stats <- analyse_track(example_gpx_path, return = "stats")
+
+# Backward compatible - original function still works
 stats <- analyse_gpx(example_gpx_path, return = "stats")
 
 # Generate a plot of the route
