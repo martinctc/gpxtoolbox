@@ -1,11 +1,11 @@
 Package: gpxtoolbox
-Title: Tools for Analyzing and Visualizing GPX Files
+Title: Tools for Analyzing and Visualizing GPX and FIT Files
 Version: 0.0.0.9000
 Authors@R: 
     person("Martin", "Chan", , "martinchan53@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = ""))
 Description: Provides functions for processing, analyzing, and visualizing GPS track data
-    from GPX files. The package offers tools for calculating route metrics such as 
+    from GPX and FIT files. The package offers tools for calculating route metrics such as 
     distance, elevation gain/loss, and speed, as well as visualization capabilities
     for elevation profiles and route maps. Designed for outdoor enthusiasts, athletes,
     and researchers who work with GPS tracking data.
@@ -21,8 +21,10 @@ Imports:
     sf,
     httr,
     ellmer,
-    leaflet
-Suggests:  
+    leaflet,
+    tools
+Suggests:
+    FITfileR,
     rmarkdown,
     knitr,
     testthat (>= 3.0.0)
