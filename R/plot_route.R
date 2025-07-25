@@ -39,7 +39,7 @@
 #' plot_route(track_data, mode = "ggplot")
 #' plot_route(track_data, mode = "leaflet")
 #' 
-#' @importFrom ggplot2 ggplot aes geom_line geom_path labs theme_minimal coord_quickmap
+#' @importFrom ggplot2 ggplot aes geom_line geom_path geom_point labs theme_minimal coord_quickmap
 #' @importFrom leaflet leaflet addProviderTiles addPolylines providers
 #' 
 #' @export
@@ -48,12 +48,14 @@ plot_route <- function(track_points, mode = "ggplot") {
     # Plot elevation profile
     elevation_plot <- ggplot(track_points, aes(x = cumulative_distance, y = ele)) +
       geom_line() +
+      geom_point() +
       labs(x = "Distance (km)", y = "Elevation (m)", title = "Elevation Profile") +
       theme_minimal()
     
     # Plot route on map (simplified)
     route_plot <- ggplot(track_points, aes(x = lon, y = lat)) +
       geom_path() +
+      geom_point() +
       labs(x = "Longitude", y = "Latitude", title = "Route Map") +
       theme_minimal() +
       coord_quickmap()
