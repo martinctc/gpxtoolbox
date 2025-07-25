@@ -115,8 +115,13 @@ analyse_track <- function(file_path, return = "stats", plot_mode = "ggplot") {
   track_points <- calculate_distance(track_points)
   track_points <- calculate_elevation_stats(track_points)
   
-  # Identify geographic locations
-  track_points <- identify_geo(track_points)
+  # Identify geographic locations (skip if offline)
+  tryCatch({
+    track_points <- identify_geo(track_points)
+  }, error = function(e) {
+    warning("Geographic location identification skipped (requires internet connection): ", e$message)
+    track_points$location <- NA
+  })
 
   # Calculate and print summary statistics
   stats <- calculate_route_stats(track_points)
