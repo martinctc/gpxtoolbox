@@ -42,13 +42,21 @@ identify_geo <- function(track_points, all = FALSE) {
   # Helper function to query the Nominatim API
   get_location <- function(lat, lon) {
     url <- sprintf("https://nominatim.openstreetmap.org/reverse?format=json&lat=%f&lon=%f", lat, lon)
-    response <- httr::GET(url, httr::user_agent("gpxtoolbox R package"))
-    if (httr::status_code(response) == 200) {
+    response <- tryCatch(
+      httr::GET(url, httr::user_agent("gpxtoolbox R package")),
+      error = function(...) NULL
+    )
+
+    if (!is.null(response) && httr::status_code(response) == 200) {
       content <- httr::content(response, as = "parsed", encoding = "UTF-8")
-      return(content$display_name)
-    } else {
-      return(NA)
+      if (!is.null(content$display_name)) {
+        return(content$display_name)
+      }
+
+      return(NA_character_)
     }
+
+    return(NA_character_)
   }
 
   if (all == TRUE) {
@@ -60,7 +68,7 @@ identify_geo <- function(track_points, all = FALSE) {
     indices <- c(1, floor(n * 0.25), floor(n * 0.5), floor(n * 0.75), n)
     locations <- sapply(indices, function(i) get_location(track_points$lat[i], track_points$lon[i]))
     
-    track_points$location <- NA  # Initialize with NA
+    track_points$location <- NA_character_  # Initialize with NA
     track_points$location[indices] <- locations
   }
   
