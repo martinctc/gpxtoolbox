@@ -61,7 +61,14 @@ read_fit_track <- function(fit_path) {
     lon = records$position_long * semicircles_to_degrees,
     lat = records$position_lat * semicircles_to_degrees,
     ele = if ("altitude" %in% names(records)) records$altitude else NA_real_,
-    time = if ("timestamp" %in% names(records)) as.POSIXct(records$timestamp, origin = "1989-12-31", tz = "UTC") else NA
+    time = if ("timestamp" %in% names(records)) {
+      ts <- records$timestamp
+      if (inherits(ts, "POSIXct") || inherits(ts, "POSIXt")) {
+        as.POSIXct(ts, tz = "UTC")
+      } else {
+        as.POSIXct(ts, origin = "1989-12-31", tz = "UTC")
+      }
+    } else NA
   )
   
   # Remove rows with missing coordinates
