@@ -1,4 +1,4 @@
-#' @title 
+#' @title Analyse Track File 
 #' Analyse Track File (GPX or FIT)
 #' 
 #' @description

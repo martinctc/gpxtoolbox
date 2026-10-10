@@ -68,7 +68,7 @@ plot_route <- function(track_points, mode = "ggplot") {
     leaflet_map <- leaflet(data = track_points) %>%
       addProviderTiles(providers$CartoDB.Positron) %>%
       addPolylines(lng = ~lon, lat = ~lat, color = "blue", weight = 2) %>%
-      addMarkers(lng = ~lon, lat = ~lat, popup = ~paste("Elevation:", ele, "m"))
+      addMarkers(lng = ~lon, lat = ~lat, popup = ~ifelse(is.na(ele), "No elevation data", paste("Elevation:", ele, "m")))
     
     # Return the leaflet map
     return(leaflet_map)

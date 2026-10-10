@@ -1,4 +1,4 @@
-#' @title 
+#' @title Analyse GPX File
 #' Analyse GPX File
 #' 
 #' @description
