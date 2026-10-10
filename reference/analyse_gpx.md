@@ -81,10 +81,10 @@ print(stats)
 #> [1] 42.81
 #> 
 #> $total_elevation_gain_m
-#> [1] 622.2
+#> [1] 621.9
 #> 
 #> $total_elevation_loss_m
-#> [1] 556.6
+#> [1] 556.3
 #> 
 #> $max_elevation_m
 #> [1] 143
