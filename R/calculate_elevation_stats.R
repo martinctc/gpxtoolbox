@@ -18,7 +18,9 @@
 #'
 #' @details
 #' This function calculates the elevation difference between consecutive points.
-#' Positive changes are recorded as elevation gain, while negative changes are recorded as elevation loss.
+#' To improve accuracy, it first removes duplicate trackpoints with identical coordinates
+#' to reduce over-counting from GPS measurement noise. Positive changes are recorded 
+#' as elevation gain, while negative changes are recorded as elevation loss.
 #' The function also calculates cumulative metrics to track total elevation change over the entire route.
 #' 
 #' @examples
@@ -35,14 +37,40 @@
 #' 
 #' @export
 calculate_elevation_stats <- function(track_points) {
-  # Calculate elevation change between consecutive points
-  ele_diff <- c(0, diff(track_points$ele))
+  # Remove duplicate trackpoints with identical coordinates to reduce GPS noise
+  # This helps avoid over-counting elevation changes from GPS measurement errors
+  duplicate_coords <- duplicated(track_points[, c("lat", "lon")])
+  clean_track_points <- track_points[!duplicate_coords, ]
+  
+  # Calculate elevation change between consecutive points using cleaned data
+  ele_diff <- c(0, diff(clean_track_points$ele))
   
   # Separate positive (gain) and negative (loss) elevation changes
-  track_points$ele_gain <- ifelse(ele_diff > 0, ele_diff, 0)
-  track_points$ele_loss <- ifelse(ele_diff < 0, -ele_diff, 0)
-  track_points$cumulative_ele_gain <- cumsum(track_points$ele_gain)
-  track_points$cumulative_ele_loss <- cumsum(track_points$ele_loss)
+  clean_track_points$ele_gain <- ifelse(ele_diff > 0, ele_diff, 0)
+  clean_track_points$ele_loss <- ifelse(ele_diff < 0, -ele_diff, 0)
+  clean_track_points$cumulative_ele_gain <- cumsum(clean_track_points$ele_gain)
+  clean_track_points$cumulative_ele_loss <- cumsum(clean_track_points$ele_loss)
+  
+  # Map the elevation stats back to the original track_points dataframe
+  # Initialize all elevation stats to 0 for original dataframe
+  track_points$ele_gain <- 0
+  track_points$ele_loss <- 0
+  track_points$cumulative_ele_gain <- 0
+  track_points$cumulative_ele_loss <- 0
+  
+  # Update stats for non-duplicate points
+  track_points[!duplicate_coords, c("ele_gain", "ele_loss", "cumulative_ele_gain", "cumulative_ele_loss")] <- 
+    clean_track_points[, c("ele_gain", "ele_loss", "cumulative_ele_gain", "cumulative_ele_loss")]
+  
+  # Forward-fill cumulative values for duplicate points
+  if (any(duplicate_coords)) {
+    for (i in 2:nrow(track_points)) {
+      if (duplicate_coords[i]) {
+        track_points$cumulative_ele_gain[i] <- track_points$cumulative_ele_gain[i-1]
+        track_points$cumulative_ele_loss[i] <- track_points$cumulative_ele_loss[i-1]
+      }
+    }
+  }
   
   return(track_points)
 }
