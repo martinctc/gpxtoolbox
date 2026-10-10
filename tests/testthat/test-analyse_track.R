@@ -4,7 +4,7 @@ test_that("analyse_track works with GPX files", {
   # Test default behavior (return = "stats")
   stats <- analyse_track(example_gpx_path)
   expect_type(stats, "list")
-  expect_true("distance_km" %in% names(stats))
+  expect_true("total_distance_km" %in% names(stats))
   
   # Test return = "data"
   track_data <- analyse_track(example_gpx_path, return = "data")

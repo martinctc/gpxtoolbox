@@ -29,17 +29,14 @@ test_that("read_track handles missing files gracefully", {
 })
 
 test_that("read_fit_track gives informative error when FITfileR is not available", {
+  skip_if(requireNamespace("FITfileR", quietly = TRUE), "FITfileR is installed; cannot test missing-dependency error")
+  
   # Create a dummy FIT file
   temp_fit_file <- tempfile(fileext = ".fit")
   writeLines("dummy FIT content", temp_fit_file)
   
-  # Mock the requireNamespace function to return FALSE
-  with_mocked_bindings(
-    requireNamespace = function(...) FALSE,
-    {
-      expect_error(read_fit_track(temp_fit_file), "FITfileR package is required")
-    }
-  )
+  # When FITfileR is not installed, read_fit_track should error with a clear message
+  expect_error(read_fit_track(temp_fit_file), "FITfileR package is required")
   
   # Clean up
   unlink(temp_fit_file)
