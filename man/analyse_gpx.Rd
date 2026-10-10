@@ -2,7 +2,8 @@
 % Please edit documentation in R/analyse_gpx.R
 \name{analyse_gpx}
 \alias{analyse_gpx}
-\title{Analyse GPX File}
+\title{Analyse GPX File
+Analyse GPX File}
 \usage{
 analyse_gpx(gpx_path, return = "stats", plot_mode = "ggplot")
 }
