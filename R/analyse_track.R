@@ -87,10 +87,12 @@ analyse_track <- function(file_path, return = "stats", plot_mode = "ggplot") {
     return(temp_file)
   }
   
+  is_downloaded <- FALSE
   # Check if file_path is a web link (only supported for GPX)
   if (grepl("^https?://", file_path)) {
     cat("Downloading GPX file from:", file_path, "\n")
     file_path <- download_gpx(file_path)
+    is_downloaded <- TRUE
   }
   
   # Validate the file
@@ -111,6 +113,11 @@ analyse_track <- function(file_path, return = "stats", plot_mode = "ggplot") {
     }
   )
   
+  # Clean up downloaded temp file
+  if (is_downloaded && file.exists(file_path)) {
+    unlink(file_path)
+  }
+  
   # Calculate metrics
   track_points <- calculate_distance(track_points)
   track_points <- calculate_elevation_stats(track_points)
@@ -120,7 +127,7 @@ analyse_track <- function(file_path, return = "stats", plot_mode = "ggplot") {
     track_points <- identify_geo(track_points)
   }, error = function(e) {
     warning("Geographic location identification skipped (requires internet connection): ", e$message)
-    track_points$location <- NA
+    track_points$location <- NA_character_
   })
 
   # Calculate and print summary statistics
