@@ -2,6 +2,16 @@ url: https://martinctc.github.io/gpxtoolbox/
 template:
   bootstrap: 5
   bootswatch: cosmo
+  includes:
+    in_header: |
+      <script
+        defer
+        src="https://ca-umami-prod.lemonglacier-6a5930b7.uksouth.azurecontainerapps.io/script.js"
+        data-website-id="cbfaeda8-c2a3-44c9-a6b8-27ded9304681"
+        data-domains="martinctc.github.io"
+        data-do-not-track="true"
+        data-exclude-search="true"
+        data-exclude-hash="true"></script>
 
 navbar:
   structure:
