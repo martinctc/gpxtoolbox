@@ -22,7 +22,8 @@
   track duration is zero, and guards small-track index calculations.
 * `read_fit_track()` supports current FITfileR releases (S4 `FitFile`
   object, chunked record messages), avoids double-converting coordinates
-  from semicircles, and accepts both POSIXct and numeric timestamps.
+  from semicircles, discards invalid out-of-range position sentinels, and
+  accepts both POSIXct and numeric timestamps.
 * `analyse_track()` cleans up temporary files downloaded from URLs even
   when an error occurs.
 * `plot_route()` no longer errors when elevation data is missing from the

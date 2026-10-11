@@ -68,15 +68,23 @@ read_fit_track <- function(fit_path) {
   lat <- record_data$position_lat
   lon <- record_data$position_long
 
-  # FIT files store position as integers in semicircles
-  # (1 semicircle = 180/2^31 degrees). FITfileR >= 0.1.0 already converts
-  # to decimal degrees, in which case values fall within [-90, 90] / [-180, 180]
-  # and no further conversion is needed.
-  if (any(abs(lat) > 90, na.rm = TRUE) || any(abs(lon) > 180, na.rm = TRUE)) {
+  # FIT files store position as integers in semicircles (1 semicircle =
+  # 180 / 2^31 degrees). FITfileR >= 0.1.0 already converts these to decimal
+  # degrees, so no further conversion is normally needed. Raw semicircle values
+  # are large, so detection uses a majority test rather than any(): a handful of
+  # invalid sentinel points (e.g. position_lat = 180) in an otherwise converted
+  # file must not trigger a spurious conversion of the whole track.
+  frac_out_of_range <- mean(abs(lat) > 90 | abs(lon) > 180, na.rm = TRUE)
+  if (is.finite(frac_out_of_range) && frac_out_of_range > 0.5) {
     semicircles_to_degrees <- 180 / (2^31)
     lat <- lat * semicircles_to_degrees
     lon <- lon * semicircles_to_degrees
   }
+
+  # Out-of-range positions are invalid FIT sentinels; treat them as missing so
+  # they are dropped along with the other missing coordinates below.
+  lat[which(abs(lat) > 90)] <- NA_real_
+  lon[which(abs(lon) > 180)] <- NA_real_
 
   # Extract relevant columns and convert to data frame
   track_points <- dplyr::tibble(
