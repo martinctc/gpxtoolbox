@@ -58,19 +58,22 @@ calculate_route_stats <- function(track_points) {
                                          units = "secs"))
     time_stats <- list(
       total_time_hours = round(total_time_sec / 3600, 2),
-      avg_speed = round(max(track_points$cumulative_distance, na.rm = TRUE) / 
-                         (total_time_sec / 3600), 2)
+      avg_speed = if (total_time_sec > 0) {
+        round(max(track_points$cumulative_distance, na.rm = TRUE) / 
+                (total_time_sec / 3600), 2)
+      } else NA_real_
     )
   }
   
-  # Basic stats
+  # Basic stats — return NA (not ±Inf) when elevation data is entirely missing
+  ele_present <- !all(is.na(track_points$ele))
   stats <- c(
     list(
       total_distance_km = round(max(track_points$cumulative_distance, na.rm = TRUE), 2),
       total_elevation_gain_m = round(sum(track_points$ele_gain, na.rm = TRUE), 2),
       total_elevation_loss_m = round(sum(track_points$ele_loss, na.rm = TRUE), 2),
-      max_elevation_m = round(max(track_points$ele, na.rm = TRUE), 2),
-      min_elevation_m = round(min(track_points$ele, na.rm = TRUE), 2)
+      max_elevation_m = if (ele_present) round(max(track_points$ele, na.rm = TRUE), 2) else NA_real_,
+      min_elevation_m = if (ele_present) round(min(track_points$ele, na.rm = TRUE), 2) else NA_real_
     ),
     time_stats
   )
@@ -81,9 +84,9 @@ calculate_route_stats <- function(track_points) {
     stats <- c(stats, list(
       start_point = track_points$location[1],
       end_point = track_points$location[n],
-      p25_point = track_points$location[floor(n * 0.25)],
-      p50_point = track_points$location[floor(n * 0.5)],
-      p75_point = track_points$location[floor(n * 0.75)]
+      p25_point = track_points$location[max(1, floor(n * 0.25))],
+      p50_point = track_points$location[max(1, floor(n * 0.5))],
+      p75_point = track_points$location[max(1, floor(n * 0.75))]
     ))
   }
   

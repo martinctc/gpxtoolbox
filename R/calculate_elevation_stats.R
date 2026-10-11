@@ -52,6 +52,7 @@ calculate_elevation_stats <- function(track_points) {
   
   # Calculate elevation change between consecutive points using cleaned data
   ele_diff <- c(0, diff(clean_track_points$ele))
+  ele_diff[is.na(ele_diff)] <- 0
   
   # Separate positive (gain) and negative (loss) elevation changes
   clean_track_points$ele_gain <- ifelse(ele_diff > 0, ele_diff, 0)

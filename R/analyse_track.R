@@ -1,5 +1,4 @@
-#' @title Analyse Track File 
-#' Analyse Track File (GPX or FIT)
+#' @title Analyse Track File
 #' 
 #' @description
 #' Processes a track file (GPX or FIT) to extract route information, calculate metrics such as
@@ -90,9 +89,10 @@ analyse_track <- function(file_path, return = "stats", plot_mode = "ggplot") {
   is_downloaded <- FALSE
   # Check if file_path is a web link (only supported for GPX)
   if (grepl("^https?://", file_path)) {
-    cat("Downloading GPX file from:", file_path, "\n")
+    message("Downloading GPX file from: ", file_path)
     file_path <- download_gpx(file_path)
     is_downloaded <- TRUE
+    on.exit(if (is_downloaded && file.exists(file_path)) unlink(file_path), add = TRUE)
   }
   
   # Validate the file
@@ -105,7 +105,7 @@ analyse_track <- function(file_path, return = "stats", plot_mode = "ggplot") {
   file_type <- if (file_ext == "gpx") "GPX" else if (file_ext == "fit") "FIT" else "track"
   
   # Read track data
-  cat("Reading", file_type, "file:", file_path, "\n")
+  message("Reading ", file_type, " file: ", file_path)
   track_points <- tryCatch(
     read_track(file_path),
     error = function(e) {
@@ -113,22 +113,19 @@ analyse_track <- function(file_path, return = "stats", plot_mode = "ggplot") {
     }
   )
   
-  # Clean up downloaded temp file
-  if (is_downloaded && file.exists(file_path)) {
-    unlink(file_path)
-  }
-  
   # Calculate metrics
   track_points <- calculate_distance(track_points)
   track_points <- calculate_elevation_stats(track_points)
   
   # Identify geographic locations (skip if offline)
-  tryCatch({
-    track_points <- identify_geo(track_points)
-  }, error = function(e) {
-    warning("Geographic location identification skipped (requires internet connection): ", e$message)
-    track_points$location <- NA_character_
-  })
+  track_points <- tryCatch(
+    identify_geo(track_points),
+    error = function(e) {
+      warning("Geographic location identification skipped (requires internet connection): ", e$message)
+      track_points$location <- NA_character_
+      track_points
+    }
+  )
 
   # Calculate and print summary statistics
   stats <- calculate_route_stats(track_points)

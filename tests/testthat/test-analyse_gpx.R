@@ -1,4 +1,7 @@
 test_that("analyse_gpx processes GPX file correctly", {
+  skip_on_cran()
+  skip_if_offline()
+  
   example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
   
   stats <- analyse_gpx(example_gpx_path, return = "stats")

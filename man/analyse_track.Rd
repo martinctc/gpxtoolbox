@@ -2,8 +2,7 @@
 % Please edit documentation in R/analyse_track.R
 \name{analyse_track}
 \alias{analyse_track}
-\title{Analyse Track File
-Analyse Track File (GPX or FIT)}
+\title{Analyse Track File}
 \usage{
 analyse_track(file_path, return = "stats", plot_mode = "ggplot")
 }

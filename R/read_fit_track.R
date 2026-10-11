@@ -32,7 +32,7 @@
 read_fit_track <- function(fit_path) {
   # Check if FITfileR is available
   if (!requireNamespace("FITfileR", quietly = TRUE)) {
-    stop("FITfileR package is required to read FIT files. Please install it using:\ninstall.packages('FITfileR')")
+    stop("FITfileR package is required to read FIT files. Please install it using:\nremotes::install_github('grimbough/FITfileR')")
   }
   
   # Read the FIT file
