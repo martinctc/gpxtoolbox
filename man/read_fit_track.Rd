@@ -24,7 +24,9 @@ This function reads a FIT file and extracts the track points, including latitude
 \details{
 The function uses FITfileR package to read FIT files. It extracts the records
 data which contains the sequential points that make up a GPS track. Time values are
-converted to POSIXct objects in UTC timezone.
+converted to POSIXct objects in UTC timezone. FIT files store positions as
+integers in semicircles; if the values are not already in decimal degrees
+(as returned by FITfileR >= 0.1.0), they are converted to degrees.
 }
 \examples{
 \dontrun{
