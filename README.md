@@ -40,7 +40,7 @@ devtools::install_github("martinctc/gpxtoolbox")
 
 ### FIT File Support
 
-To use FIT files, you'll also need to install the `FITfileR` package:
+FIT support is optional, so `FITfileR` is not installed automatically with `gpxtoolbox`. To use FIT files, install it separately from GitHub — it is not on CRAN, which is why it isn't a standard dependency:
 
 ```r
 # Install FITfileR for FIT file support
