@@ -29,6 +29,8 @@ navbar:
       menu: 
         - text: "Introduction to gpxtoolbox"
           href: articles/gpxtoolbox.html
+        - text: "Reading and analysing GPX and FIT tracks"
+          href: articles/tracks-and-fit.html
         - text: "Generate Route Titles and Descriptions from GPX with LLMs"
           href: articles/gen_description.html
           
