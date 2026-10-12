@@ -211,7 +211,8 @@ plot_route(track_data, mode = "leaflet")
 # Identifying geographic locations
 
 `identify_geo()` reverse-geocodes track points via the OpenStreetMap Nominatim
-API and adds a `location` column (for example `"Tonbridge, Kent, England"`).
+API and adds a `location` column holding the full address string, for example
+`"Highbury, London Borough of Islington, Greater London, England, United Kingdom"`.
 `analyse_track()` calls it automatically, geocoding the start, end, and 25%,
 50%, and 75% points. Use `all = TRUE` to geocode every point.
 

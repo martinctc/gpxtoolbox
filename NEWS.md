@@ -7,6 +7,8 @@
   behaviours, geocoding, and troubleshooting.
 * Updated the "Introduction to gpxtoolbox" vignette to use the unified
   `read_track()`/`analyse_track()` interface.
+* Updated the "Generate Route Titles and Descriptions" vignette to reference the
+  unified `analyse_track()` interface.
 
 ## New features
 
