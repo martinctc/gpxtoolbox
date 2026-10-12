@@ -11,9 +11,11 @@ vignette: >
 
 # Overview
 
-`gpxtoolbox` is an R package designed for processing, analysing, and visualising GPS track data from GPX files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps.
+`gpxtoolbox` is an R package designed for processing, analysing, and visualising GPS track data from GPX and FIT files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps.
 
-This vignette demonstrates how to use the key functions of the package.
+This vignette is a quick tour of the key functions. For a deeper look at the
+format-agnostic interface and FIT-specific behaviour, see the companion article
+[Reading and analysing GPX and FIT tracks with the unified interface](tracks-and-fit.html).
 
 # Installation
 
@@ -39,14 +41,16 @@ library(gpxtoolbox)
 
 ## Read a GPX File
 
-Use the `read_gpx_track()` function to extract track points from a GPX file.
+Use the `read_track()` function to extract track points. It detects the file
+format automatically, so it works for both GPX and FIT files (FIT also requires
+the optional `FITfileR` package).
 
 ```{r}
 # Path to the example GPX file
 example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
 
 # Read the GPX file
-track_data <- read_gpx_track(example_gpx_path)
+track_data <- read_track(example_gpx_path)
 
 # View the first few rows of the track data
 head(track_data)
@@ -88,34 +92,42 @@ Use `plot_route()` to create visualisations of the route, including an elevation
 plot_route(track_data)
 ```
 
-## Analyse a GPX File in One Step
+## Analyse a Track File in One Step
 
-The `analyse_gpx()` function provides a high-level interface to process a GPX file and return statistics, plots, or processed data.
+The `analyse_track()` function provides a high-level interface to process a GPX
+or FIT file and return statistics, plots, or processed data.
 
 ```{r}
-# Analyse the example GPX file and get summary statistics
-stats <- analyse_gpx(example_gpx_path, return = "stats")
+# Analyse the example track file and get summary statistics
+stats <- analyse_track(example_gpx_path, return = "stats")
 print(stats)
 
 # Generate a plot of the route
-analyse_gpx(example_gpx_path, return = "plot")
+analyse_track(example_gpx_path, return = "plot")
 
 # Get processed track points data
-track_data <- analyse_gpx(example_gpx_path, return = "data")
+track_data <- analyse_track(example_gpx_path, return = "data")
+```
+
+The original `analyse_gpx()` function is still available and simply delegates to
+`analyse_track()` for backward compatibility.
+
+```{r, eval = FALSE}
+stats <- analyse_gpx(example_gpx_path, return = "stats")
 ```
 
 # Working with Web Links
 
-You can also analyse GPX files from web links (e.g., Strava or RideWithGPS). The function will automatically download the GPX file and process it.
+You can also analyse GPX files from web links (e.g., Strava or RideWithGPS). The function will automatically download the GPX file and process it. (Web link support is GPX only.)
 
 ```r
 # Analyse a GPX file from a Strava link
-# stats <- analyse_gpx("https://www.strava.com/routes/3193200014155699162")
+# stats <- analyse_track("https://www.strava.com/routes/3193200014155699162")
 
 # Analyse a GPX file from a RideWithGPS link
-# stats <- analyse_gpx("https://ridewithgps.com/routes/39294504")
+# stats <- analyse_track("https://ridewithgps.com/routes/39294504")
 ```
 
 # Conclusion
 
-`gpxtoolbox` provides a comprehensive set of tools for working with GPX files in R. Whether you're an outdoor enthusiast, athlete, or researcher, this package makes it easy to process, analyse, and visualise GPS track data.
+`gpxtoolbox` provides a comprehensive set of tools for working with GPX and FIT files in R. Whether you're an outdoor enthusiast, athlete, or researcher, this package makes it easy to process, analyse, and visualise GPS track data. For FIT files and the unified interface in more detail, see the [companion article](tracks-and-fit.html).

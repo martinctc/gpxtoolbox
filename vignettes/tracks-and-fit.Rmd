@@ -1,0 +1,266 @@
+---
+title: "Reading and analysing GPX and FIT tracks with the unified interface"
+author: "Martin Chan"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reading and analysing GPX and FIT tracks with the unified interface}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+`gpxtoolbox` can read GPS tracks from two file formats:
+
+- **GPX** — the XML-based format used by many fitness apps and route planners.
+- **FIT** — Garmin's binary format, used by Garmin devices and many other
+  fitness devices.
+
+Rather than remembering a different function for each format, the package
+provides a single **unified interface** — `read_track()` and `analyse_track()` —
+that detects the file format automatically and does the right thing.
+
+This vignette shows how to use that unified interface, and explains the
+FIT-specific setup and behaviours you should be aware of.
+
+# Installation
+
+Install the development version of `gpxtoolbox` from GitHub:
+
+```r
+# Install devtools if not already installed
+install.packages("devtools")
+
+# Install gpxtoolbox
+devtools::install_github("martinctc/gpxtoolbox")
+```
+
+## FIT file support is optional
+
+FIT support is provided through the `FITfileR` package. It is **not** installed
+automatically with `gpxtoolbox`, because `FITfileR` is not on CRAN (it is
+distributed primarily from GitHub). Install it separately if you need to read
+FIT files:
+
+```r
+# Install FITfileR for FIT file support
+remotes::install_github("grimbough/FITfileR")
+```
+
+If you only work with GPX files, you do not need `FITfileR` at all. Every GPX
+feature of the package works without it.
+
+# The unified track interface
+
+Two functions form the unified interface:
+
+| Function                   | Purpose                                                     |
+|----------------------------|-------------------------------------------------------------|
+| `read_track(file_path)`    | Reads a `.gpx` or `.fit` file and returns the track points. |
+| `analyse_track(file_path)` | Reads the file *and* calculates metrics and summary stats.  |
+
+Format detection is based on the file extension:
+
+- `.gpx` files are read with `read_gpx_track()`.
+- `.fit` files are read with `read_fit_track()` (requires `FITfileR`).
+- Any other extension raises an error.
+
+The lower-level readers `read_gpx_track()` and `read_fit_track()` remain
+available if you prefer to call them directly, and the original `analyse_gpx()`
+still works — `analyse_gpx()` is now simply a wrapper around `analyse_track()`.
+
+# Reading a GPX track
+
+The package ships with an example GPX file. Reading it is identical to the FIT
+workflow that follows — the only difference is the file you point at.
+
+```{r}
+library(gpxtoolbox)
+
+# Path to the example GPX file bundled with the package
+example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
+
+# read_track() detects the format from the .gpx extension
+track_data <- read_track(example_gpx_path)
+
+# Track points come back as a data frame of lon, lat, ele and time
+head(track_data)
+```
+
+# Reading a FIT track
+
+Reading a FIT file uses exactly the same function — just pass the path to a
+`.fit` file. FIT files are typically exported from a Garmin device or synced
+from a fitness platform.
+
+```{r, eval = FALSE}
+# Requires the FITfileR package (see Installation above)
+fit_path <- "path/to/your_activity.fit"
+
+fit_track <- read_track(fit_path)
+head(fit_track)
+```
+
+If you prefer to be explicit, call the FIT reader directly:
+
+```{r, eval = FALSE}
+fit_track <- read_fit_track(fit_path)
+```
+
+Both produce the same four columns as GPX reading: `lon`, `lat`, `ele`, and
+`time`.
+
+## How FIT data is mapped
+
+FIT files store their data as a series of *messages*. `read_fit_track()` reads
+the `record` messages, which are the sequential points that make up a track, and
+maps them onto the standard columns:
+
+| FIT field        | Output column | Notes                                        |
+|------------------|---------------|----------------------------------------------|
+| `position_long`  | `lon`         | Converted to decimal degrees if needed.      |
+| `position_lat`   | `lat`         | Converted to decimal degrees if needed.      |
+| `altitude`       | `ele`         | `NA` when the file contains no altitude.     |
+| `timestamp`      | `time`        | `POSIXct` in UTC.                            |
+
+# FIT-specific behaviours
+
+FIT files produced by different devices vary in what they contain. The reader
+handles the common irregularities gracefully rather than failing:
+
+- **Position sentinels.** Some devices write placeholder "sentinel" coordinates
+  (for example `position_lat = 180`) for points with no fix. These are treated
+  as missing and those rows are dropped, so a handful of bad points will not
+  distort the whole track.
+- **Missing elevation.** Many files (for example swim activities) record no
+  altitude. Elevation is returned as `NA`, and the elevation range statistics
+  (`max_elevation_m` and `min_elevation_m`) report `NA_real_` instead of
+  `Inf`/`-Inf`.
+- **Missing GPS fields entirely.** If a FIT file has `record` messages but no
+  `position_lat`/`position_long` fields, reading stops with a message listing
+  the missing fields.
+- **No record messages.** If a FIT file contains no `record` messages at all
+  (for example a monitoring file), reading stops with
+  `"No record data found in FIT file. This may not be a valid GPS track file."`
+
+# End-to-end analysis
+
+`analyse_track()` bundles the whole workflow — read, calculate distance and
+elevation, geocode key points, and summarise — into one call. It works with
+either format.
+
+```{r, eval = FALSE}
+# Summary statistics for the example track
+stats <- analyse_track(example_gpx_path)
+print(stats)
+```
+
+This returns a named list including the total distance and elevation gain/loss,
+plus the geocoded start, end, and 25%, 50%, and 75% points. (The chunk is not
+run during the build because `analyse_track()` geocodes via an external API —
+see the section "Identifying geographic locations" below. The sample GPX file
+also has no timestamps, so the time-based fields `total_time_hours` and
+`avg_speed` are omitted.)
+
+The `return` argument controls what you get back:
+
+- `"stats"` (default) — a named list of route statistics.
+- `"data"` — the processed track points, with `cumulative_distance`,
+  `ele_gain`/`ele_loss`, and a `location` column.
+- `"plot"` — a visualisation of the route.
+
+```{r, eval = FALSE}
+# Processed track points, ready for your own analysis or plotting
+processed <- analyse_track(example_gpx_path, return = "data")
+head(processed)
+```
+
+The returned data frame keeps `lon`, `lat`, `ele`, and `time`, and adds
+`distance`, `cumulative_distance`, `ele_gain`/`ele_loss`, the cumulative
+elevation columns, and a `location` column.
+
+## Plotting
+
+`analyse_track(return = "plot")` accepts a `plot_mode`. Use `"ggplot"` (the
+default) for static plots, or `"leaflet"` for an interactive map with markers.
+
+```{r, eval = FALSE}
+# Static ggplot2 route and elevation profile
+analyse_track(example_gpx_path, return = "plot", plot_mode = "ggplot")
+
+# Interactive leaflet map with route line and point markers
+analyse_track(example_gpx_path, return = "plot", plot_mode = "leaflet")
+```
+
+You can also plot track points you have already read, using `plot_route()`:
+
+```{r, eval = FALSE}
+track_data <- read_track(example_gpx_path)
+track_data <- calculate_distance(track_data)
+plot_route(track_data, mode = "leaflet")
+```
+
+# Identifying geographic locations
+
+`identify_geo()` reverse-geocodes track points via the OpenStreetMap Nominatim
+API and adds a `location` column holding the full address string, for example
+`"Highbury, London Borough of Islington, Greater London, England, United Kingdom"`.
+`analyse_track()` calls it automatically, geocoding the start, end, and 25%,
+50%, and 75% points. Use `all = TRUE` to geocode every point.
+
+```{r, eval = FALSE}
+# Identify locations for start, end, and key points (default)
+track_data <- identify_geo(track_data)
+
+# Or for every point — note this makes many more API calls
+track_data <- identify_geo(track_data, all = TRUE)
+```
+
+This requires an active internet connection, and the Nominatim API is subject to
+rate limits — prefer the default (`all = FALSE`) unless you really need every
+point.
+
+# Web links (GPX only)
+
+`analyse_gpx()` and `analyse_track()` can accept a Strava or RideWithGPS route
+link directly. The GPX file is downloaded to a temporary location and removed
+afterwards. Web links are **GPX only** — FIT files must be local paths.
+
+```r
+# Analyse a route from a Strava link
+stats <- analyse_track("https://www.strava.com/routes/3193200014155699162")
+
+# Analyse a route from a RideWithGPS link
+stats <- analyse_track("https://ridewithgps.com/routes/39294504")
+```
+
+# Troubleshooting
+
+| Symptom                                                                       | Likely cause and fix                                              |
+|-------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| `"FITfileR package is required to read FIT files…"`                           | Install `FITfileR` from GitHub (see Installation).                |
+| `"Missing required GPS fields in FIT file: …"`                                | The file has no position data; it is not a GPS track.             |
+| `"No record data found in FIT file. This may not be a valid GPS track file."` | The file has no track records (e.g. a monitoring file).           |
+| `"Unsupported file format: …"`                                                | `read_track()` only handles `.gpx` and `.fit`; check the extension. |
+| Locations come back as `NA`                                                   | No internet connection, or the geocoding service was unavailable. |
+
+# Conclusion
+
+The unified interface means you rarely need to think about file formats:
+`read_track()` and `analyse_track()` accept both GPX and FIT, detect the format
+for you, and normalise the output to the same `lon`/`lat`/`ele`/`time` columns.
+Install the optional `FITfileR` package when you need FIT support, and the rest
+of the workflow — metrics, statistics, geocoding, and plots — works the same
+either way.
+
+```{r, eval = FALSE}
+sessionInfo()
+```

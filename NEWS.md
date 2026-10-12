@@ -1,5 +1,15 @@
 # gpxtoolbox (development version)
 
+## Documentation
+
+* Added the vignette "Reading and analysing GPX and FIT tracks with the unified
+  interface", covering `read_track()`/`analyse_track()`, FIT setup and
+  behaviours, geocoding, and troubleshooting.
+* Updated the "Introduction to gpxtoolbox" vignette to use the unified
+  `read_track()`/`analyse_track()` interface.
+* Updated the "Generate Route Titles and Descriptions" vignette to reference the
+  unified `analyse_track()` interface.
+
 ## New features
 
 * Added `read_track()` as a unified interface that dispatches to
