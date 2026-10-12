@@ -47,8 +47,8 @@ devtools::install_github("martinctc/gpxtoolbox")
 
 FIT support is provided through the `FITfileR` package. It is **not** installed
 automatically with `gpxtoolbox`, because `FITfileR` is not on CRAN (it is
-distributed only from GitHub). Install it separately if you need to read FIT
-files:
+distributed primarily from GitHub). Install it separately if you need to read
+FIT files:
 
 ```r
 # Install FITfileR for FIT file support
@@ -141,14 +141,15 @@ handles the common irregularities gracefully rather than failing:
   as missing and those rows are dropped, so a handful of bad points will not
   distort the whole track.
 - **Missing elevation.** Many files (for example swim activities) record no
-  altitude. Elevation is returned as `NA`, and summary statistics report
-  `NA_real_` instead of `Inf`/`-Inf`.
+  altitude. Elevation is returned as `NA`, and the elevation range statistics
+  (`max_elevation_m` and `min_elevation_m`) report `NA_real_` instead of
+  `Inf`/`-Inf`.
 - **Missing GPS fields entirely.** If a FIT file has `record` messages but no
   `position_lat`/`position_long` fields, reading stops with a message listing
   the missing fields.
 - **No record messages.** If a FIT file contains no `record` messages at all
   (for example a monitoring file), reading stops with
-  `"No record data found in FIT file."`
+  `"No record data found in FIT file. This may not be a valid GPS track file."`
 
 # End-to-end analysis
 
@@ -156,11 +157,18 @@ handles the common irregularities gracefully rather than failing:
 elevation, geocode key points, and summarise — into one call. It works with
 either format.
 
-```{r}
+```{r, eval = FALSE}
 # Summary statistics for the example track
 stats <- analyse_track(example_gpx_path)
 print(stats)
 ```
+
+This returns a named list including the total distance and elevation gain/loss,
+plus the geocoded start, end, and 25%, 50%, and 75% points. (The chunk is not
+run during the build because `analyse_track()` geocodes via an external API —
+see the section "Identifying geographic locations" below. The sample GPX file
+also has no timestamps, so the time-based fields `total_time_hours` and
+`avg_speed` are omitted.)
 
 The `return` argument controls what you get back:
 
@@ -169,11 +177,15 @@ The `return` argument controls what you get back:
   `ele_gain`/`ele_loss`, and a `location` column.
 - `"plot"` — a visualisation of the route.
 
-```{r}
+```{r, eval = FALSE}
 # Processed track points, ready for your own analysis or plotting
 processed <- analyse_track(example_gpx_path, return = "data")
 head(processed)
 ```
+
+The returned data frame keeps `lon`, `lat`, `ele`, and `time`, and adds
+`distance`, `cumulative_distance`, `ele_gain`/`ele_loss`, the cumulative
+elevation columns, and a `location` column.
 
 ## Plotting
 
@@ -231,13 +243,13 @@ stats <- analyse_track("https://ridewithgps.com/routes/39294504")
 
 # Troubleshooting
 
-| Symptom                                                    | Likely cause and fix                                                                 |
-|------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| `"FITfileR package is required to read FIT files"`         | Install `FITfileR` from GitHub (see Installation).                                    |
-| `"Missing required GPS fields in FIT file: ..."`           | The file has no position data; it is not a GPS track.                                 |
-| `"No record data found in FIT file."`                      | The file has no track records (e.g. a monitoring file).                               |
-| `"Unsupported file format: ..."`                           | `read_track()` only handles `.gpx` and `.fit`; check the extension.                   |
-| Locations come back as `NA`                                | No internet connection, or the geocoding service was unavailable.                     |
+| Symptom                                                                       | Likely cause and fix                                              |
+|-------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| `"FITfileR package is required to read FIT files…"`                           | Install `FITfileR` from GitHub (see Installation).                |
+| `"Missing required GPS fields in FIT file: …"`                                | The file has no position data; it is not a GPS track.             |
+| `"No record data found in FIT file. This may not be a valid GPS track file."` | The file has no track records (e.g. a monitoring file).           |
+| `"Unsupported file format: …"`                                                | `read_track()` only handles `.gpx` and `.fit`; check the extension. |
+| Locations come back as `NA`                                                   | No internet connection, or the geocoding service was unavailable. |
 
 # Conclusion
 
