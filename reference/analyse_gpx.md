@@ -75,7 +75,7 @@ example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxt
 
 # Analyse the example GPX file
 stats <- analyse_gpx(example_gpx_path)
-#> Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx 
+#> Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx
 print(stats)
 #> $total_distance_km
 #> [1] 42.81
@@ -110,7 +110,7 @@ print(stats)
 
 # Generate a plot of the example GPX file
 analyse_gpx(example_gpx_path, return = "plot")
-#> Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx 
+#> Reading GPX file: /home/runner/work/_temp/Library/gpxtoolbox/extdata/icc_intro_ride.gpx
 
 
 ```

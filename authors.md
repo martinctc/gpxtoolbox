@@ -6,11 +6,11 @@
 
 ## Citation
 
-Chan M (2026). *gpxtoolbox: Tools for Analyzing and Visualizing GPX
-Files*. R package version 0.0.0.9000.
+Chan M (2026). *gpxtoolbox: Tools for Analyzing and Visualizing GPX and
+FIT Files*. R package version 0.0.0.9000.
 
     @Manual{,
-      title = {gpxtoolbox: Tools for Analyzing and Visualizing GPX Files},
+      title = {gpxtoolbox: Tools for Analyzing and Visualizing GPX and FIT Files},
       author = {Martin Chan},
       year = {2026},
       note = {R package version 0.0.0.9000},

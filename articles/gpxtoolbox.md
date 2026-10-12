@@ -177,19 +177,19 @@ print(stats)
     ## [1] 29.9
     ## 
     ## $start_point
-    ## [1] "43, Fieldway Crescent, Highbury, London Borough of Islington, Greater London, England, N5 1PU, United Kingdom"
+    ## [1] NA
     ## 
     ## $end_point
-    ## [1] "Highgate Shoe Care, 367, Archway Road, Muswell Hill, London Borough of Haringey, Greater London, England, N6 5FJ, United Kingdom"
+    ## [1] NA
     ## 
     ## $p25_point
-    ## [1] "Highwood Hill, Mill Hill, London Borough of Barnet, Greater London, England, NW7 4HN, United Kingdom"
+    ## [1] NA
     ## 
     ## $p50_point
-    ## [1] "36, Camlet Way, Hadley Wood, London Borough of Enfield, Greater London, England, EN4 0LJ, United Kingdom"
+    ## [1] NA
     ## 
     ## $p75_point
-    ## [1] "Lincoln Road, Colney Hatch, London Borough of Barnet, Greater London, England, N2 9EL, United Kingdom"
+    ## [1] NA
 
 ``` r
 

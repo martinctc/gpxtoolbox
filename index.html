@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Tools for Analyzing and Visualizing GPX Files • gpxtoolbox</title>
+<title>Tools for Analyzing and Visualizing GPX and FIT Files • gpxtoolbox</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tools for Analyzing and Visualizing GPX Files">
-<meta name="description" content="Provides functions for processing, analyzing, and visualizing GPS track data from GPX files. The package offers tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualization capabilities for elevation profiles and route maps. Designed for outdoor enthusiasts, athletes, and researchers who work with GPS tracking data.">
-<meta property="og:description" content="Provides functions for processing, analyzing, and visualizing GPS track data from GPX files. The package offers tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualization capabilities for elevation profiles and route maps. Designed for outdoor enthusiasts, athletes, and researchers who work with GPS tracking data.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tools for Analyzing and Visualizing GPX and FIT Files">
+<meta name="description" content="Provides functions for processing, analyzing, and visualizing GPS track data from GPX and FIT files. The package offers tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualization capabilities for elevation profiles and route maps. Designed for outdoor enthusiasts, athletes, and researchers who work with GPS tracking data.">
+<meta property="og:description" content="Provides functions for processing, analyzing, and visualizing GPS track data from GPX and FIT files. The package offers tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualization capabilities for elevation profiles and route maps. Designed for outdoor enthusiasts, athletes, and researchers who work with GPS tracking data.">
 <script defer src="https://ca-umami-prod.lemonglacier-6a5930b7.uksouth.azurecontainerapps.io/script.js" data-website-id="cbfaeda8-c2a3-44c9-a6b8-27ded9304681" data-domains="martinctc.github.io" data-do-not-track="true" data-exclude-search="true" data-exclude-hash="true"></script>
 </head>
 <body>
@@ -57,11 +57,20 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="gpxtoolbox">gpxtoolbox<a class="anchor" aria-label="anchor" href="#gpxtoolbox"></a>
 </h1></div>
-<p>Tools for analysing and visualising GPX files.</p>
+<p>Tools for analysing and visualising GPX and FIT files.</p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><code>gpxtoolbox</code> is an R package designed for processing, analysing, and visualising GPS track data from GPX files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps. This package is ideal for outdoor enthusiasts, athletes, and researchers working with GPS tracking data.</p>
+<p><code>gpxtoolbox</code> is an R package designed for processing, analysing, and visualising GPS track data from GPX and FIT files. It provides tools for calculating route metrics such as distance, elevation gain/loss, and speed, as well as visualisation capabilities for elevation profiles and route maps. This package is ideal for outdoor enthusiasts, athletes, and researchers working with GPS tracking data.</p>
+<div class="section level3">
+<h3 id="supported-file-formats">Supported File Formats<a class="anchor" aria-label="anchor" href="#supported-file-formats"></a>
+</h3>
+<ul>
+<li>
+<strong>GPX files</strong>: Standard GPS data format used by many fitness apps and GPS devices</li>
+<li>
+<strong>FIT files</strong>: Garmin’s proprietary format used by Garmin devices and many other fitness devices</li>
+</ul>
 <p>One of the more powerful features from this package is <code><a href="reference/gen_description.html">gen_description()</a></code>, which uses LLMs to generate a title and description for a given GPX file. It uses the information extracted from a GPX file, including distance, elevation, and geography to simulate a title and description. {ellmer} is used to interface with LLMs, providing access from a wide range of options including Azure OpenAI, Anthropic Claude, and Google Gemini.</p>
 <p>An example of the output would be:</p>
 <pre><code>**Title:** Tonbridge Castle Loop - 112.5 km, 903 m Elevation Gain
@@ -71,7 +80,8 @@ Experience an exhilarating adventure on this scenic loop that starts and ends at
 
 At the 25% mark, you'll pass Pearsons Green Road in Paddock Wood, where the lush greenery sets the perfect backdrop for your journey. Midway, at Bitchet Green, soak in picturesque views that highlight the charm of Seal and Sevenoaks. As you approach the 75% point, enjoy the sights at Pootings Oast in Crockham Hill, an idyllic area known for its rolling hills and quaint charm.
 
-This route's elevation variations, featuring a maximum rise up to 242 m, ensure that both challenge and reward await every cyclist, making it ideal for those seeking a blend of stunning landscapes and a fulfilling ride. Whether youâ€™re out for a leisure ride or training for a longer event, this loop promises to deliver on both adventure and scenic beauty.</code></pre>
+This route's elevation variations, featuring a maximum rise up to 242 m, ensure that both challenge and reward await every cyclist, making it ideal for those seeking a blend of stunning landscapes and a fulfilling ride. Whether you're out for a leisure ride or training for a longer event, this loop promises to deliver on both adventure and scenic beauty.</code></pre>
+</div>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -83,13 +93,21 @@ This route's elevation variations, featuring a maximum rise up to 242 m, ensure 
 <span></span>
 <span><span class="co"># Install gpxtoolbox</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"martinctc/gpxtoolbox"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="fit-file-support">FIT File Support<a class="anchor" aria-label="anchor" href="#fit-file-support"></a>
+</h3>
+<p>FIT support is optional, so <code>FITfileR</code> is not installed automatically with <code>gpxtoolbox</code>. To use FIT files, install it separately from GitHub — it is not on CRAN, which is why it isn’t a standard dependency:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install FITfileR for FIT file support</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"grimbough/FITfileR"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
 </h2>
 <ul>
 <li>
-<strong>Read GPX Files</strong>: Extract track points, including latitude, longitude, elevation, and time.</li>
+<strong>Read GPX and FIT Files</strong>: Extract track points, including latitude, longitude, elevation, and time from both GPX and FIT formats.</li>
 <li>
 <strong>Calculate Metrics</strong>: Compute distances, elevation gain/loss, and cumulative metrics.</li>
 <li>
@@ -97,24 +115,45 @@ This route's elevation variations, featuring a maximum rise up to 242 m, ensure 
 <li>
 <strong>Summarise Statistics</strong>: Generate summary statistics for distance, elevation, and time.</li>
 <li>
-<strong>Generate Titles and Descriptions from GPX files</strong>: Use LLMs to generate titles and descriptions for your GPX files.</li>
+<strong>Generate Titles and Descriptions from track files</strong>: Use LLMs to generate titles and descriptions for your GPX and FIT files.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <div class="section level3">
+<h3 id="working-with-gpx-and-fit-files">Working with GPX and FIT Files<a class="anchor" aria-label="anchor" href="#working-with-gpx-and-fit-files"></a>
+</h3>
+<p>The package now supports both GPX and FIT files with unified functions that automatically detect the file format:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gpxtoolbox</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Works with GPX files</span></span>
+<span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span>
+<span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_track.html">read_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Also works with FIT files (requires FITfileR package)</span></span>
+<span><span class="co"># track_data &lt;- read_track("path/to/your_activity.fit")</span></span>
+<span></span>
+<span><span class="co"># Get complete analysis</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_track.html">analyse_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate plots</span></span>
+<span><span class="fu"><a href="reference/analyse_track.html">analyse_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"plot"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="example-workflow">Example Workflow<a class="anchor" aria-label="anchor" href="#example-workflow"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gpxtoolbox</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Use the example GPX file included in the package</span></span>
 <span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Read the GPX file</span></span>
-<span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gpx_track.html">read_gpx_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span><span class="op">)</span></span>
+<span><span class="co"># Read the track file (works with both .gpx and .fit files)</span></span>
+<span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_track.html">read_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculate distances and elevation statistics</span></span>
 <span><span class="va">track_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calculate_distance.html">calculate_distance</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span>
@@ -128,11 +167,16 @@ This route's elevation variations, featuring a maximum rise up to 242 m, ensure 
 <span><span class="fu"><a href="reference/plot_route.html">plot_route</a></span><span class="op">(</span><span class="va">track_data</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="analyse-a-gpx-file-in-one-step">Analyse a GPX File in One Step<a class="anchor" aria-label="anchor" href="#analyse-a-gpx-file-in-one-step"></a>
+<h3 id="analyse-a-track-file-in-one-step">Analyse a Track File in One Step<a class="anchor" aria-label="anchor" href="#analyse-a-track-file-in-one-step"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Analyse the example GPX file and get summary statistics</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Analyse any track file (GPX or FIT) and get summary statistics</span></span>
 <span><span class="va">example_gpx_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"icc_intro_ride.gpx"</span>, package <span class="op">=</span> <span class="st">"gpxtoolbox"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># New generic function that works with both formats</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_track.html">analyse_track</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"stats"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Backward compatible - original function still works</span></span>
 <span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/analyse_gpx.html">analyse_gpx</a></span><span class="op">(</span><span class="va">example_gpx_path</span>, return <span class="op">=</span> <span class="st">"stats"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Generate a plot of the route</span></span>
@@ -158,9 +202,19 @@ This route's elevation variations, featuring a maximum rise up to 242 m, ensure 
 </tr></thead>
 <tbody>
 <tr>
+<td><code><a href="reference/read_track.html">read_track()</a></code></td>
+<td>Path to a GPX or FIT file</td>
+<td>Data frame of track points (latitude, longitude, elevation, time)</td>
+</tr>
+<tr>
 <td><code><a href="reference/read_gpx_track.html">read_gpx_track()</a></code></td>
 <td>Path to a GPX file</td>
-<td>Data frame of track points (latitude, longitude, elevation, time, etc.)</td>
+<td>Data frame of track points (latitude, longitude, elevation, time)</td>
+</tr>
+<tr>
+<td><code><a href="reference/read_fit_track.html">read_fit_track()</a></code></td>
+<td>Path to a FIT file (requires FITfileR)</td>
+<td>Data frame of track points (latitude, longitude, elevation, time)</td>
 </tr>
 <tr>
 <td><code><a href="reference/calculate_distance.html">calculate_distance()</a></code></td>
@@ -183,9 +237,19 @@ This route's elevation variations, featuring a maximum rise up to 242 m, ensure 
 <td>Visualisation of the route (elevation profile and map)</td>
 </tr>
 <tr>
+<td><code><a href="reference/analyse_track.html">analyse_track()</a></code></td>
+<td>Path to a GPX/FIT file or web link</td>
+<td>Route statistics, visualisation, or processed track points (depending on <code>return</code> value)</td>
+</tr>
+<tr>
 <td><code><a href="reference/analyse_gpx.html">analyse_gpx()</a></code></td>
 <td>Path to a GPX file or web link</td>
 <td>Route statistics, visualisation, or processed track points (depending on <code>return</code> value)</td>
+</tr>
+<tr>
+<td><code><a href="reference/identify_geo.html">identify_geo()</a></code></td>
+<td>Data frame of track points</td>
+<td>Data frame with added location column (via Nominatim reverse geocoding)</td>
 </tr>
 <tr>
 <td><code><a href="reference/gen_description.html">gen_description()</a></code></td>
@@ -195,17 +259,18 @@ This route's elevation variations, featuring a maximum rise up to 242 m, ensure 
 </tbody>
 </table>
 <div class="section level3">
-<h3 id="functions-called-by-analyse_gpx">Functions Called by <code>analyse_gpx()</code>
-<a class="anchor" aria-label="anchor" href="#functions-called-by-analyse_gpx"></a>
+<h3 id="functions-called-by-analyse_track">Functions Called by <code>analyse_track()</code>
+<a class="anchor" aria-label="anchor" href="#functions-called-by-analyse_track"></a>
 </h3>
 <ul>
-<li><code><a href="reference/read_gpx_track.html">read_gpx_track()</a></code></li>
+<li>
+<code><a href="reference/read_track.html">read_track()</a></code> (dispatches to <code><a href="reference/read_gpx_track.html">read_gpx_track()</a></code> or <code><a href="reference/read_fit_track.html">read_fit_track()</a></code>)</li>
 <li><code><a href="reference/calculate_distance.html">calculate_distance()</a></code></li>
 <li><code><a href="reference/calculate_elevation_stats.html">calculate_elevation_stats()</a></code></li>
+<li><code><a href="reference/identify_geo.html">identify_geo()</a></code></li>
 <li><code><a href="reference/calculate_route_stats.html">calculate_route_stats()</a></code></li>
 <li>
 <code><a href="reference/plot_route.html">plot_route()</a></code> (if <code>return = "plot"</code>)</li>
-<li><code><a href="reference/identify_geo.html">identify_geo()</a></code></li>
 </ul>
 </div>
 <div class="section level3">
@@ -265,9 +330,8 @@ This route's elevation variations, featuring a maximum rise up to 242 m, ensure 
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
