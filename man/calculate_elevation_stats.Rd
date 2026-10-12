@@ -27,7 +27,9 @@ adds these metrics to the track points data frame.
 }
 \details{
 This function calculates the elevation difference between consecutive points.
-Positive changes are recorded as elevation gain, while negative changes are recorded as elevation loss.
+To improve accuracy, it first removes duplicate trackpoints with identical coordinates
+to reduce over-counting from GPS measurement noise. Positive changes are recorded
+as elevation gain, while negative changes are recorded as elevation loss.
 The function also calculates cumulative metrics to track total elevation change over the entire route.
 }
 \examples{

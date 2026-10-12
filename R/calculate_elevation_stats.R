@@ -37,6 +37,14 @@
 #' 
 #' @export
 calculate_elevation_stats <- function(track_points) {
+  if (nrow(track_points) == 0) {
+    track_points$ele_gain <- numeric(0)
+    track_points$ele_loss <- numeric(0)
+    track_points$cumulative_ele_gain <- numeric(0)
+    track_points$cumulative_ele_loss <- numeric(0)
+    return(track_points)
+  }
+  
   # Remove duplicate trackpoints with identical coordinates to reduce GPS noise
   # This helps avoid over-counting elevation changes from GPS measurement errors
   duplicate_coords <- duplicated(track_points[, c("lat", "lon")])
@@ -44,6 +52,7 @@ calculate_elevation_stats <- function(track_points) {
   
   # Calculate elevation change between consecutive points using cleaned data
   ele_diff <- c(0, diff(clean_track_points$ele))
+  ele_diff[is.na(ele_diff)] <- 0
   
   # Separate positive (gain) and negative (loss) elevation changes
   clean_track_points$ele_gain <- ifelse(ele_diff > 0, ele_diff, 0)

@@ -1,5 +1,4 @@
-#' @title 
-#' Analyse GPX File
+#' @title Analyse GPX File
 #' 
 #' @description
 #' Processes a GPX file to extract route information, calculate metrics such as

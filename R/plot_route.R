@@ -40,7 +40,7 @@
 #' plot_route(track_data, mode = "leaflet")
 #' 
 #' @importFrom ggplot2 ggplot aes geom_line geom_path geom_point labs theme_minimal coord_quickmap
-#' @importFrom leaflet leaflet addProviderTiles addPolylines providers
+#' @importFrom leaflet leaflet addProviderTiles addPolylines addMarkers providers
 #' 
 #' @export
 plot_route <- function(track_points, mode = "ggplot") {
@@ -67,7 +67,8 @@ plot_route <- function(track_points, mode = "ggplot") {
     # Create an interactive map using leaflet with CartoDB.Positron tiles
     leaflet_map <- leaflet(data = track_points) %>%
       addProviderTiles(providers$CartoDB.Positron) %>%
-      addPolylines(lng = ~lon, lat = ~lat, color = "blue", weight = 2)
+      addPolylines(lng = ~lon, lat = ~lat, color = "blue", weight = 2) %>%
+      addMarkers(lng = ~lon, lat = ~lat, popup = ~ifelse(is.na(ele), "No elevation data", paste("Elevation:", ele, "m")))
     
     # Return the leaflet map
     return(leaflet_map)

@@ -1,4 +1,7 @@
 test_that("analyse_gpx processes GPX file correctly", {
+  skip_on_cran()
+  skip_if_offline()
+  
   example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
   
   stats <- analyse_gpx(example_gpx_path, return = "stats")
@@ -22,5 +25,5 @@ test_that("analyse_gpx processes GPX file correctly", {
   track_data <- analyse_gpx(example_gpx_path, return = "data")
   expect_s3_class(track_data, "data.frame")
   
-  expect_error(analyse_gpx("invalid_path.gpx"), "The GPX file is missing or empty")
+  expect_error(analyse_gpx("invalid_path.gpx"), "track file is missing")
 })

@@ -1,4 +1,7 @@
 test_that("identify_geo identifies geographic locations correctly", {
+  skip_on_cran()
+  skip_if_offline()
+  
   example_gpx_path <- system.file("extdata", "icc_intro_ride.gpx", package = "gpxtoolbox")
   track_data <- read_gpx_track(example_gpx_path)
   track_data <- identify_geo(track_data, all = FALSE)
